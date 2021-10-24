@@ -34,6 +34,32 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(body:Container(width:size.width,height:size.height,child:Stack(children: [Row(children:[Container(height:double.infinity,width: size.width/2,color:kPrimaryColor),Container(height:double.infinity,width: size.width/2,color:Colors.white)]),Align(alignment: Alignment.topLeft,child:Padding(padding: EdgeInsets.all(32),child: Text("Welcome to Our App!",style: TextStyle(color:Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),),)],),),);
+    return Scaffold(
+      body: Container(
+        width: size.width,
+        height: size.height,
+        child: Stack(
+          children: [
+            Row(children: [
+              Container(
+                  height: double.infinity,
+                  width: size.width / 2,
+                  color: kPrimaryColor),
+              Container(
+                  height: double.infinity,
+                  width: size.width / 2,
+                  color: Colors.white)
+            ]),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.all(32),
+                child: Column(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
