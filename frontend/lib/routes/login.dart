@@ -117,3 +117,99 @@ class _LogInState extends State<LogIn> {
                             password = value;
                           },
                         ),
+                        SizedBox(
+                          height: 64,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            if (_key.currentState.validate()) {
+                              _key.currentState.save();
+                              loginUser();
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(25),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kPrimaryColor.withOpacity(0.2),
+                                  spreadRadius: 4,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 32,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an account?",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  Navigator.pushNamed(context, '/signup');
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Register",
+                                    style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: kPrimaryColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      ),
+    );
+  }
+}
