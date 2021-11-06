@@ -16,7 +16,6 @@ class _SignUpState extends State<SignUp> {
     String username, name, email, password;
     final _key = GlobalKey<FormState>();
 
-    // TODO: save user
     Future signUpUser() async {
       print("Name: $name, email: $email, password: $password");
 
@@ -24,7 +23,7 @@ class _SignUpState extends State<SignUp> {
       final url = Uri.parse('http://127.0.0.1:8000/api/sign-up');
 
       final requestBody = {
-        "username": "username-fefault",
+        "username": username,
         "name": name,
         "email": email,
         "password": password,
@@ -93,6 +92,25 @@ class _SignUpState extends State<SignUp> {
                           color: kPrimaryColor,
                           thickness: 2,
                         ),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Username',
+                          labelText: 'Username',
+                          suffixIcon: Icon(
+                            Icons.person_outline,
+                          ),
+                        ),
+                        keyboardType: TextInputType.name,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Please don't leave username empty!";
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          username = value;
+                        },
                       ),
                       SizedBox(
                         height: 32,
