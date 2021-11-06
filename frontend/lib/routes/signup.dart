@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatefulWidget {
   @override
@@ -11,14 +13,45 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String name, email, password;
+    String username, name, email, password;
     final _key = GlobalKey<FormState>();
 
     // TODO: save user
-    void signUpUser() {
+    Future signUpUser() async {
       print("Name: $name, email: $email, password: $password");
 
-      // Redirect to another page
+      // Local host for django and endpoint for signing up
+      final url = Uri.parse('http://127.0.0.1:8000/api/sign-up');
+
+      final requestBody = {
+        "username": "username-fefault",
+        "name": name,
+        "email": email,
+        "password": password,
+        "phoneNumber": "default",
+        "isAuthenticated": false.toString(),
+        "isActive": true.toString(),
+      };
+
+      try {
+        final response = await http.post(
+          url,
+          body: requestBody,
+          encoding: Encoding.getByName("utf-8"),
+        );
+
+        // Succesfull transmission
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+          print("Transmission was succesfull!!!");
+
+          // Redirect to home page where the user is signed in
+          Navigator.pushNamed(context, '/home');
+        }
+      } catch (error) {
+        print("Error: $error");
+
+        // An error occured, please try again later.
+      }
     }
 
     return Container(

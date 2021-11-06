@@ -11,20 +11,24 @@ class SignUp(APIView):
     authentication_classes = [] # No authentication needed
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data, many=True)
+        serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
             #TODO: Can hash the password and then save it
 
             serializer.save()
-
+            
             return Response(
                 {
                     "RequestId": str(uuid.uuid4()),
                     "Message": "User created successfully",                    
-                    "User": serializer.data
+                    "User": serializer.data,
                 }, 
                 status=status.HTTP_201_CREATED,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
             )
 
         return Response(
@@ -35,7 +39,6 @@ class SignUp(APIView):
     def get(self, request):
         if User.objects.count != 0:
             users = User.objects.all()
-            print("Userssssssss" , users)
             serializer = UserSerializer(users, many=True)
             return Response(serializer.data)
 
