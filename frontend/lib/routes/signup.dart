@@ -10,10 +10,20 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool _passwordVisible;
+  final passwordController = TextEditingController();
+  String username, name, email, password;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+    passwordController.text = password;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String username, name, email, password;
+
     final _key = GlobalKey<FormState>();
 
     Future signUpUser() async {
@@ -164,11 +174,29 @@ class _SignUpState extends State<SignUp> {
                         height: 32,
                       ),
                       TextFormField(
+                        controller: passwordController,
+                        obscureText: !_passwordVisible,
                         decoration: InputDecoration(
                           hintText: 'Password',
                           labelText: 'Password',
-                          suffixIcon: Icon(
-                            Icons.lock_outline,
+                          //suffixIcon: Icon(
+                          //Icons.lock_outline,
+                          //),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              // Based on passwordVisible state choose the icon
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Theme.of(context).primaryColorDark,
+                            ),
+                            onPressed: () {
+                              // Update the state i.e. toogle the state of passwordVisible variable
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                                password = passwordController.text;
+                              });
+                            },
                           ),
                         ),
                         keyboardType: TextInputType.visiblePassword,
