@@ -1,18 +1,18 @@
 // For testing purposes, will change in the future
 class Event {
-  final String eventName;
-  final String eventThumbnail;
-  final String eventPerformer;
-  final String eventDate;
-  final String eventLocation;
-  final String eventTime;
+  final String name;
+  final String thumbnail;
+  final String performer;
+  final String date;
+  final String location;
+  final String time;
 
   Event({
-    this.eventName,
-    this.eventThumbnail,
-    this.eventLocation,
-    this.eventDate,
-    this.eventTime,
-    this.eventPerformer,
+    this.name,
+    this.thumbnail,
+    this.location,
+    this.date,
+    this.time,
+    this.performer,
   });
 }

@@ -4,49 +4,49 @@ import 'package:frontend/models/event.dart';
 
 List<Event> events = [
   Event(
-    eventName: "Sample event 1",
-    eventThumbnail:
+    name: "Sample event 1",
+    thumbnail:
         "https://image.shutterstock.com/image-photo/rave-concert-party-edm-festival-600w-1916911232.jpg",
-    eventDate: "11.2.2021",
-    eventLocation: "Istnabul1",
-    eventTime: "11.00",
-    eventPerformer: "Performer1",
+    date: "11.2.2021",
+    location: "Istnabul1",
+    time: "11.00",
+    performer: "Performer1",
   ),
   Event(
-    eventName: "Sample event 2",
-    eventThumbnail:
+    name: "Sample event 2",
+    thumbnail:
         "https://image.shutterstock.com/image-photo/confetti-falling-on-festive-concert-600w-1147630022.jpg",
-    eventDate: "11.2.2021",
-    eventLocation: "Istnabul2",
-    eventTime: "11.00",
-    eventPerformer: "Performer2",
+    date: "11.2.2021",
+    location: "Istnabul2",
+    time: "11.00",
+    performer: "Performer2",
   ),
   Event(
-    eventName: "Sample event 3",
-    eventThumbnail:
+    name: "Sample event 3",
+    thumbnail:
         "https://image.shutterstock.com/image-photo/confetti-falling-on-festive-concert-600w-1147630022.jpg",
-    eventDate: "11.2.2021",
-    eventLocation: "Istnabul3",
-    eventTime: "11.00",
-    eventPerformer: "Performer3",
+    date: "11.2.2021",
+    location: "Istnabul3",
+    time: "11.00",
+    performer: "Performer3",
   ),
   Event(
-    eventName: "Sample event 4",
-    eventThumbnail:
+    name: "Sample event 4",
+    thumbnail:
         "https://image.shutterstock.com/image-photo/close-musician-hands-cello-on-600w-23285866.jpg",
-    eventDate: "11.2.2021",
-    eventLocation: "Istnabul4",
-    eventTime: "11.00",
-    eventPerformer: "Performer4",
+    date: "11.2.2021",
+    location: "Istnabul4",
+    time: "11.00",
+    performer: "Performer4",
   ),
   Event(
-    eventName: "Sample event 5",
-    eventThumbnail:
+    name: "Sample event 5",
+    thumbnail:
         "https://image.shutterstock.com/image-photo/piano-flute-golden-shine-sheet-600w-516401134.jpg",
-    eventDate: "11.2.2021",
-    eventLocation: "Istnabul5",
-    eventTime: "11.00",
-    eventPerformer: "Performer5",
+    date: "11.2.2021",
+    location: "Istnabul5",
+    time: "11.00",
+    performer: "Performer5",
   ),
 ];
 
@@ -85,15 +85,23 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      // body: Text("This is the home page!!!"),
-      body: EventCard(
-        eventDate: "24.11.2021",
-        eventLocation: "Istanbul",
-        eventName: "Sample Event",
-        eventPerformer: "Enes",
-        eventThumbnail:
-            "https://image.shutterstock.com/shutterstock/photos/611045375/display_1500/stock-photo-crowd-at-concert-summer-music-festival-611045375.jpg",
-        eventTime: "20.00",
+      body: Column(
+        children: [
+          // List of events:
+          Expanded(
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 2,
+                  crossAxisCount: 3,
+                ),
+                itemCount: events.length,
+                itemBuilder: (context, i) {
+                  return EventCard(
+                    event: events[i],
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }
