@@ -95,7 +95,9 @@ class _HomePageState extends State<HomePage> {
               // TODO: Add announcements, maybe?
               Expanded(
                 child: Container(
-                  color: kPrimaryColor,
+                  child: Center(
+                    child: Text("Announcements can come here!"),
+                  ),
                 ),
               ),
             ],
@@ -114,8 +116,15 @@ class _HomePageState extends State<HomePage> {
               ),
               itemCount: events.length,
               itemBuilder: (context, i) {
-                return EventCard(
-                  event: events[i],
+                return GestureDetector(
+                  onTap: () {
+                    // TODO: Redirect to events detailed page
+                    var url = imageList[i];
+                    print("Clicked on ${events[i].name}");
+                  },
+                  child: EventCard(
+                    event: events[i],
+                  ),
                 );
               }),
         ],
