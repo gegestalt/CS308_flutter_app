@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/constants.dart';
 import 'package:frontend/utils/eventcard.dart';
 import 'package:frontend/models/event.dart';
+import '../utils/eventslider.dart';
 
 List<Event> events = [
   Event(
@@ -58,7 +60,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement homepage
     return Scaffold(
       appBar: AppBar(
         title: Text("Justicket"),
@@ -85,22 +86,38 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: [
-          // List of events:
-          Expanded(
-            child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 2,
-                  crossAxisCount: 3,
+          Row(
+            children: [
+              // Image slider for featured events:
+              Expanded(child: eventSlider()),
+              // TODO: Add announcements, maybe?
+              Expanded(
+                child: Container(
+                  color: kPrimaryColor,
                 ),
-                itemCount: events.length,
-                itemBuilder: (context, i) {
-                  return EventCard(
-                    event: events[i],
-                  );
-                }),
+              ),
+            ],
           ),
+
+          SizedBox(
+            height: 16,
+          ),
+
+          // List of events:
+          GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 2,
+                crossAxisCount: 3,
+              ),
+              itemCount: events.length,
+              itemBuilder: (context, i) {
+                return EventCard(
+                  event: events[i],
+                );
+              }),
         ],
       ),
     );
