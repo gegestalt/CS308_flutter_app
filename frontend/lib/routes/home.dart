@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/eventcard.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,7 +36,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Text("This is the home page!!!"),
+      // body: Text("This is the home page!!!"),
+      body: EventCard(
+        eventDate: "24.11.2021",
+        eventLocation: "Istanbul",
+        eventName: "Sample Event",
+        eventPerformer: "Enes",
+        eventThumbnail:
+            "https://image.shutterstock.com/shutterstock/photos/611045375/display_1500/stock-photo-crowd-at-concert-summer-music-festival-611045375.jpg",
+        eventTime: "20.00",
+      ),
     );
   }
 }
