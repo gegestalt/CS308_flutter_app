@@ -24,27 +24,37 @@ class EventCard extends StatefulWidget {
 class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        width: 200,
-        height: 250,
-        child: Expanded(
+    return Card(
+      child: GestureDetector(
+        child: Container(
+          width: 200,
+          height: 200,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image(
-                image: NetworkImage(widget.eventThumbnail),
-              ),
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      Text(widget.eventName),
-                      Text(widget.eventLocation),
-                      Text(widget.eventDate),
-                      Text(widget.eventTime)
-                    ],
-                  ),
-                ],
+              Expanded(child: Image.network(widget.eventThumbnail)),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget.eventName),
+                        Text(widget.eventLocation),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget.eventDate),
+                        Text(widget.eventTime)
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
