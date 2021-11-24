@@ -26,6 +26,7 @@ class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 5,
       child: GestureDetector(
         child: Container(
           width: 400,
