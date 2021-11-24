@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/constants.dart';
 
 class EventCard extends StatefulWidget {
   const EventCard({
@@ -27,33 +28,60 @@ class _EventCardState extends State<EventCard> {
     return Card(
       child: GestureDetector(
         child: Container(
-          width: 200,
+          width: 400,
           height: 200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Row(
             children: [
-              Expanded(child: Image.network(widget.eventThumbnail)),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(widget.eventName),
-                        Text(widget.eventLocation),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(widget.eventDate),
-                        Text(widget.eventTime)
-                      ],
-                    ),
-                  ],
+                flex: 5,
+                child: Image.network(widget.eventThumbnail),
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.eventName,
+                        softWrap: true,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.location_pin,
+                                color: kPrimaryColor,
+                              ),
+                              Text(
+                                widget.eventLocation,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.date_range,
+                                color: kPrimaryColor,
+                              ),
+                              Text(
+                                widget.eventDate,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
