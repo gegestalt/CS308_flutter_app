@@ -4,6 +4,7 @@ import 'utils/constants.dart';
 import 'routes/home.dart';
 import 'routes/signup.dart';
 import 'routes/login.dart';
+import 'routes/usersettings.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/home': (context)=> HomePage(),
         '/signup': (context) => SignUp(),
         '/login': (context) => LogIn(),
+        '/usersettings':(context) =>UserSettings(),
       },
     );
   }
