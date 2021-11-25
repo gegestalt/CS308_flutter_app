@@ -38,7 +38,6 @@ class _AnimatedEventCardState extends State<AnimatedEventCard> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.ease,
         padding: EdgeInsets.all(isHovering ? 0 : 15),
-        decoration: BoxDecoration(),
         child: Opacity(
           opacity: isHovering ? 1 : 0.9,
           child: EventCard(

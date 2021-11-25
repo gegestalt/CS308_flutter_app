@@ -24,7 +24,6 @@ Widget eventSlider() {
                 border: Border.all(
                   color: Colors.white,
                 )),
-            //ClipRRect for image border radius
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Image.network(
@@ -35,8 +34,8 @@ Widget eventSlider() {
             ),
           ),
           onTap: () {
-            var url = featuredEvents[i].thumbnail;
-            print(url.toString());
+            // var url = featuredEvents[i].thumbnail;
+            // print(url.toString());
 
             Navigator.push(
               context,
