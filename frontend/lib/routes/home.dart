@@ -84,6 +84,16 @@ class _HomePageState extends State<HomePage> {
               "Sign Up",
             ),
           ),
+          RawMaterialButton(
+            onPressed: () {
+              setState(() {
+                Navigator.pushNamed(context, "/usersettings");
+              });
+            },
+            child: Text(
+              "Settings",
+            ),
+          ),
         ],
       ),
       body: ListView(
