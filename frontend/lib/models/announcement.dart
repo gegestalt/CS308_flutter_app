@@ -28,4 +28,40 @@ List<Announcement> announcements = [
     content: "This is probably the last announcement.",
     date: "11.1.1111",
   ),
+  Announcement(
+    content: "Appearently not the last one.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "Adding dummy announcement again to simulate scrolling.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "This is taking a lot of time.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "Still not enough.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "OMG",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "Agaiiiiin.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "This is probably the last announcement.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "This is probably the last announcement.",
+    date: "11.1.1111",
+  ),
+  Announcement(
+    content: "This is probably the last announcement.",
+    date: "11.1.1111",
+  ),
 ];

@@ -98,7 +98,7 @@ class SmallEventCard extends StatelessWidget {
     return Card(
       elevation: 5,
       child: Container(
-        width: 180,
+        width: 175,
         height: 360,
         child: Column(
           children: [

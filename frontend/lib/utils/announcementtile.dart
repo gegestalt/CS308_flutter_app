@@ -11,7 +11,13 @@ class AnnouncementTile extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Text(this.announcement.content),
+          Icon(Icons.add_alert),
+          SizedBox(
+            width: 2,
+          ),
+          Flexible(
+            child: Text(this.announcement.content),
+          ),
         ],
       ),
     );

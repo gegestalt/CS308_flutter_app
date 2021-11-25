@@ -19,9 +19,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size;
+    bool smallScreen = false;
 
     // Effective integer division, convert the result to int
     final crossAxisCount = media.width ~/ 400;
+    if (media.width < 550) smallScreen = true;
 
     return Scaffold(
       appBar: AppBar(
@@ -51,24 +53,34 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: [
+          // Slider on top if the screen is small:
+          smallScreen ? eventSlider() : Container(),
+
+          // If the screen is not small, slider and announcements in a row:
           Row(
             children: [
               // Image slider for featured events:
-              Expanded(
-                child: eventSlider(),
-              ),
+              !smallScreen
+                  ? Expanded(
+                      child: eventSlider(),
+                    )
+                  : Container(),
 
               // Announcements list:
               Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: announcements.length,
-                  itemBuilder: (context, i) {
-                    return AnnouncementTile(
-                      announcement: announcements[i],
-                    );
-                  },
-                  separatorBuilder: (context, i) => Divider(),
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 300,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: announcements.length,
+                    itemBuilder: (context, i) {
+                      return AnnouncementTile(
+                        announcement: announcements[i],
+                      );
+                    },
+                    separatorBuilder: (context, i) => Divider(),
+                  ),
                 ),
               ),
             ],
