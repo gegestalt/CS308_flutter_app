@@ -14,6 +14,8 @@ class EventCard extends StatefulWidget {
 }
 
 class _EventCardState extends State<EventCard> {
+  bool isHovering = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -23,7 +25,10 @@ class _EventCardState extends State<EventCard> {
           children: [
             Expanded(
               flex: 5,
-              child: Image.network(widget.event.thumbnail),
+              child: Image.network(
+                widget.event.thumbnail,
+                fit: BoxFit.cover,
+              ),
             ),
             Expanded(
               flex: 3,
@@ -38,7 +43,7 @@ class _EventCardState extends State<EventCard> {
                       softWrap: true,
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(

@@ -3,54 +3,7 @@ import 'package:frontend/utils/constants.dart';
 import 'package:frontend/utils/eventcard.dart';
 import 'package:frontend/models/event.dart';
 import '../utils/eventslider.dart';
-
-List<Event> events = [
-  Event(
-    name: "Sample event 1",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/rave-concert-party-edm-festival-600w-1916911232.jpg",
-    date: "11.2.2021",
-    location: "Istnabul1",
-    time: "11.00",
-    performer: "Performer1",
-  ),
-  Event(
-    name: "Sample event 2",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/confetti-falling-on-festive-concert-600w-1147630022.jpg",
-    date: "11.2.2021",
-    location: "Istnabul2",
-    time: "11.00",
-    performer: "Performer2",
-  ),
-  Event(
-    name: "Sample event 3",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/confetti-falling-on-festive-concert-600w-1147630022.jpg",
-    date: "11.2.2021",
-    location: "Istnabul3",
-    time: "11.00",
-    performer: "Performer3",
-  ),
-  Event(
-    name: "Sample event 4",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/close-musician-hands-cello-on-600w-23285866.jpg",
-    date: "11.2.2021",
-    location: "Istnabul4",
-    time: "11.00",
-    performer: "Performer4",
-  ),
-  Event(
-    name: "Sample event 5",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/piano-flute-golden-shine-sheet-600w-516401134.jpg",
-    date: "11.2.2021",
-    location: "Istnabul5",
-    time: "11.00",
-    performer: "Performer5",
-  ),
-];
+import '../utils/animatedeventcard.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -109,24 +62,25 @@ class _HomePageState extends State<HomePage> {
 
           // List of events:
           GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 2,
-                crossAxisCount: 3,
-              ),
-              itemCount: events.length,
-              itemBuilder: (context, i) {
-                return GestureDetector(
-                  onTap: () {
-                    // TODO: Redirect to events detailed page
-                    var url = imageList[i];
-                    print("Clicked on ${events[i].name}");
-                  },
-                  child: EventCard(
-                    event: events[i],
-                  ),
-                );
-              }),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 2,
+              crossAxisCount: 3,
+            ),
+            itemCount: events.length,
+            itemBuilder: (context, i) {
+              return GestureDetector(
+                onTap: () {
+                  // TODO: Redirect to events detailed page
+                  var url = imageList[i];
+                  print("Clicked on ${events[i].name}");
+                },
+                child: AnimatedEventCard(
+                  event: events[i],
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
