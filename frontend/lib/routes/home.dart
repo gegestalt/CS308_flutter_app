@@ -44,7 +44,9 @@ class _HomePageState extends State<HomePage> {
           Row(
             children: [
               // Image slider for featured events:
-              Expanded(child: eventSlider()),
+              Expanded(
+                child: eventSlider(),
+              ),
               // TODO: Add announcements, maybe?
               Expanded(
                 child: Container(
@@ -69,15 +71,8 @@ class _HomePageState extends State<HomePage> {
             ),
             itemCount: events.length,
             itemBuilder: (context, i) {
-              return GestureDetector(
-                onTap: () {
-                  // TODO: Redirect to events detailed page
-                  var url = imageList[i];
-                  print("Clicked on ${events[i].name}");
-                },
-                child: AnimatedEventCard(
-                  event: events[i],
-                ),
+              return AnimatedEventCard(
+                event: events[i],
               );
             },
           ),

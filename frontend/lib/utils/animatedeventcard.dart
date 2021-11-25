@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/routes/eventdetails.dart';
 import 'package:frontend/utils/eventcard.dart';
 import 'package:frontend/models/event.dart';
 
@@ -17,7 +18,19 @@ class _AnimatedEventCardState extends State<AnimatedEventCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => null,
+      onTap: () {
+        var url = widget.event.thumbnail;
+        print(url.toString());
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EventDetails(
+              event: widget.event,
+            ),
+          ),
+        );
+      },
       onHover: (hovering) {
         setState(() => isHovering = hovering);
       },
