@@ -17,6 +17,9 @@ class _EventDetailsState extends State<EventDetails> {
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size;
+    bool isSmallScreen = false;
+
+    if (media.width < 720) isSmallScreen = true;
 
     return Scaffold(
       body: ListView(
@@ -24,12 +27,15 @@ class _EventDetailsState extends State<EventDetails> {
         shrinkWrap: true,
         children: [
           // Image, name, date, location:
+          isSmallScreen ? Image.network(widget.event.thumbnail) : Container(),
           Row(
             children: [
-              Expanded(
-                flex: 3,
-                child: Image.network(widget.event.thumbnail),
-              ),
+              !isSmallScreen
+                  ? Expanded(
+                      flex: 3,
+                      child: Image.network(widget.event.thumbnail),
+                    )
+                  : Container(),
               Expanded(
                 flex: 5,
                 child: Column(
@@ -151,6 +157,7 @@ class CustomTab extends StatelessWidget {
         child: Text(
           this.text,
           style: TextStyle(
+            fontWeight: FontWeight.w500,
             fontSize: 15,
             color: kPrimaryColor,
           ),
