@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:frontend/utils/constants.dart';
-import 'package:frontend/utils/eventcard.dart';
 import 'package:frontend/models/event.dart';
+import '../utils/selecttickets.dart';
 
 class EventDetails extends StatefulWidget {
   const EventDetails({this.event});
@@ -18,6 +18,7 @@ class _EventDetailsState extends State<EventDetails> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size;
     bool isSmallScreen = false;
+    double scaffoldSize = media.width - 250;
 
     if (media.width < 720) isSmallScreen = true;
 
@@ -126,17 +127,24 @@ class _EventDetailsState extends State<EventDetails> {
             height: 15,
           ),
 
-          Container(
-            height: 500,
-            child: Scaffold(
-              body: Row(
-                children: [
-                  // Search ticket and buy ticket:
-                  Text("first"),
-                  Text("second"),
-                ],
+          Wrap(
+            children: [
+              Container(
+                height: 500,
+                width: isSmallScreen ? media.width : scaffoldSize * (2 / 3),
+                child: TicketSearch(event: widget.event),
               ),
-            ),
+              !isSmallScreen
+                  ? SizedBox(
+                      width: 20,
+                    )
+                  : Container(),
+              Container(
+                height: 500,
+                width: isSmallScreen ? media.width : scaffoldSize * (1 / 3),
+                child: SelectedTickets(),
+              ),
+            ],
           ),
         ],
       ),
