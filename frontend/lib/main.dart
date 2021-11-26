@@ -4,6 +4,7 @@ import 'utils/constants.dart';
 import 'routes/home.dart';
 import 'routes/signup.dart';
 import 'routes/login.dart';
+import 'routes/eventdetails.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,9 +23,10 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(),
       routes: {
-        '/home': (context)=> HomePage(),
+        '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),
         '/login': (context) => LogIn(),
+        '/event-details': (context) => EventDetails(),
       },
     );
   }
