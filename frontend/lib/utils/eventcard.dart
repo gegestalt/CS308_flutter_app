@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/models/event.dart';
+import '../routes/eventdetails.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({
@@ -95,68 +96,83 @@ class SmallEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        width: 175,
-        height: 360,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 5,
-              child: Image.network(
-                this.event.thumbnail,
-                fit: BoxFit.cover,
-              ),
+    return GestureDetector(
+      onTap: () {
+        var url = this.event.thumbnail;
+        print(url.toString());
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EventDetails(
+              event: this.event,
             ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        this.event.name,
-                        softWrap: true,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.location_pin,
-                          color: kPrimaryColor,
-                        ),
-                        Flexible(
-                          child: Text(
-                            this.event.location,
-                            softWrap: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.date_range,
-                          color: kPrimaryColor,
-                        ),
-                        Flexible(
-                          child: Text(
-                            this.event.date,
-                            softWrap: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+          ),
+        );
+      },
+      child: Card(
+        elevation: 5,
+        child: Container(
+          width: 175,
+          height: 360,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 5,
+                child: Image.network(
+                  this.event.thumbnail,
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          this.event.name,
+                          softWrap: true,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            color: kPrimaryColor,
+                          ),
+                          Flexible(
+                            child: Text(
+                              this.event.location,
+                              softWrap: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.date_range,
+                            color: kPrimaryColor,
+                          ),
+                          Flexible(
+                            child: Text(
+                              this.event.date,
+                              softWrap: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

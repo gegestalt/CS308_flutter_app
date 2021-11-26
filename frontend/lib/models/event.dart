@@ -6,6 +6,8 @@ class Event {
   final String date;
   final String location;
   final String time;
+  final String rules;
+  final String prices;
 
   Event({
     this.name,
@@ -14,6 +16,8 @@ class Event {
     this.date,
     this.time,
     this.performer,
+    this.rules = "Default rule placeholder.\nThis is after new line.",
+    this.prices = "Adult - 100USD\nStudent - 50USD",
   });
 }
 

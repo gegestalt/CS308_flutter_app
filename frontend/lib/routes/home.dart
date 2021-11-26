@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isSmallScreen = false;
-  List<Widget> eventWidgets = [];
 
   @override
   Widget build(BuildContext context) {
