@@ -14,6 +14,10 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
+  String ticketDate = "Select Date";
+  String ticketNumber = "1";
+  String ticketType = "Please Select";
+
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size;
@@ -130,9 +134,116 @@ class _EventDetailsState extends State<EventDetails> {
           Wrap(
             children: [
               Container(
-                height: 500,
+                height: 300,
                 width: isSmallScreen ? media.width : scaffoldSize * (2 / 3),
-                child: TicketSearch(event: widget.event),
+                // Search tickets box:
+                child: Scaffold(
+                  appBar: AppBar(
+                    automaticallyImplyLeading: false,
+                    title: Text("Search Tickets"),
+                  ),
+                  body: Container(
+                    padding: EdgeInsets.all(25),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                    ),
+                    child: Column(
+                      children: [
+                        // Select Date
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Select Date"),
+                            DropdownButton(
+                              value: ticketDate,
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: kPrimaryColor,
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  ticketDate = newValue;
+                                });
+                              },
+                              items: [
+                                'Select Date',
+                                'Two',
+                                'Three',
+                                'Four',
+                                widget.event.date
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+
+                        // Select ticket number
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Ticket Quantity"),
+                            DropdownButton(
+                              value: ticketNumber,
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: kPrimaryColor,
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  ticketNumber = newValue;
+                                });
+                              },
+                              items: [
+                                "1",
+                                "2",
+                                "3"
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+
+                        // Select ticket type:
+                        DropdownButton(
+                          value: ticketType,
+                          icon: const Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: kPrimaryColor,
+                          ),
+                          onChanged: (newValue) {
+                            setState(() {
+                              ticketType = newValue;
+                            });
+                          },
+                          items: ["Please Select", "Category 1", "Category2"]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               !isSmallScreen
                   ? SizedBox(
@@ -142,7 +253,53 @@ class _EventDetailsState extends State<EventDetails> {
               Container(
                 height: 500,
                 width: isSmallScreen ? media.width : scaffoldSize * (1 / 3),
-                child: SelectedTickets(),
+                // Selected tickets box:
+                child: Scaffold(
+                  appBar: AppBar(
+                    automaticallyImplyLeading: false,
+                    title: Text("Your Tickets"),
+                  ),
+                  body: Container(
+                    padding: EdgeInsets.all(25),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Selected Date"),
+                            Text(ticketDate),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Selected Ticket Number"),
+                            Text(ticketNumber),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Selected Ticket Type"),
+                            Text(ticketType),
+                          ],
+                        ),
+                        SizedBox(height: 15),
+                        OutlinedButton(
+                          child: Text("Continue"),
+                          onPressed: () {
+                            // TODO: Add the selected ticket to cart and go to checkout.
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

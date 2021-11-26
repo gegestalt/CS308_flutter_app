@@ -3,19 +3,22 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:frontend/models/event.dart';
 import 'package:frontend/utils/constants.dart';
 
+// CURRENTLY NOT USED ANYWHERE, DID NOT DELETE THIS JUST IN CASE!
+
 class TicketSearch extends StatefulWidget {
-  const TicketSearch({this.event});
+  const TicketSearch({this.key, this.event});
 
   final Event event;
+  final Key key;
 
   @override
-  _TicketSearchState createState() => _TicketSearchState();
+  TicketSearchState createState() => TicketSearchState();
 }
 
-class _TicketSearchState extends State<TicketSearch> {
-  String dropdownDate = "Select Date";
-  String dropdownTicketNumber = "1";
-  String dropdownTicket = "Please Select";
+class TicketSearchState extends State<TicketSearch> {
+  String ticketDate = "Select Date";
+  String ticketNumber = "1";
+  String ticketType = "Please Select";
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class _TicketSearchState extends State<TicketSearch> {
               children: [
                 Text("Select Date"),
                 DropdownButton(
-                  value: dropdownDate,
+                  value: ticketDate,
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -48,7 +51,7 @@ class _TicketSearchState extends State<TicketSearch> {
                   ),
                   onChanged: (newValue) {
                     setState(() {
-                      dropdownDate = newValue;
+                      ticketDate = newValue;
                     });
                   },
                   items: [
@@ -73,7 +76,7 @@ class _TicketSearchState extends State<TicketSearch> {
               children: [
                 Text("Ticket Quantity"),
                 DropdownButton(
-                  value: dropdownTicketNumber,
+                  value: ticketNumber,
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -83,7 +86,7 @@ class _TicketSearchState extends State<TicketSearch> {
                   ),
                   onChanged: (newValue) {
                     setState(() {
-                      dropdownTicketNumber = newValue;
+                      ticketNumber = newValue;
                     });
                   },
                   items: ["1", "2", "3"]
@@ -99,7 +102,7 @@ class _TicketSearchState extends State<TicketSearch> {
 
             // Select ticket type:
             DropdownButton(
-              value: dropdownTicket,
+              value: ticketType,
               icon: const Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 16,
@@ -109,7 +112,7 @@ class _TicketSearchState extends State<TicketSearch> {
               ),
               onChanged: (newValue) {
                 setState(() {
-                  dropdownTicket = newValue;
+                  ticketType = newValue;
                 });
               },
               items: ["Please Select", "Category 1", "Category2"]
@@ -127,33 +130,28 @@ class _TicketSearchState extends State<TicketSearch> {
   }
 }
 
-class SelectedTickets extends StatefulWidget {
-  const SelectedTickets();
-
-  @override
-  _SelectedTicketsState createState() => _SelectedTicketsState();
-}
-
-class _SelectedTicketsState extends State<SelectedTickets> {
-  @override
-  Widget build(BuildContext context) {
-    // Search ticket and buy ticket:
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Your Tickets"),
+Widget selectedTickets() {
+  // Search ticket and buy ticket:
+  return Scaffold(
+    appBar: AppBar(
+      automaticallyImplyLeading: false,
+      title: Text("Your Tickets"),
+    ),
+    body: Container(
+      decoration: BoxDecoration(
+        border: Border.all(),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          border: Border.all(),
-        ),
-        child: Row(
-          children: [
-            Text("first"),
-            Text("second"),
-          ],
-        ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text("Selection"),
+              Text(""),
+            ],
+          ),
+          Row(),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
