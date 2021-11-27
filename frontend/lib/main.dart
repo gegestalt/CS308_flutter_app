@@ -5,6 +5,7 @@ import 'routes/home.dart';
 import 'routes/signup.dart';
 import 'routes/login.dart';
 import 'routes/eventdetails.dart';
+import 'routes/usersettings.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignUp(),
         '/login': (context) => LogIn(),
         '/event-details': (context) => EventDetails(),
+        '/usersettings':(context) =>UserSettings(),
       },
     );
   }
