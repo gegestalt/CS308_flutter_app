@@ -59,14 +59,50 @@ class UserSettings(APIView):
         newName = request.data["name"]
         newPassword = request.data["password"]
         newPhonenumber = request.data["phoneNumber"]
+        isActive = request.data["isActive"]
+        deleteAccount = request.data["deleteAccount"]
 
 
-        
+        if deleteAccount == "True":
+            user = User.objects.get(email = email)
+            
+            user.delete()
 
-        if email != None:
+            return Response(
+                {
+                    "RequestId": str(uuid.uuid4()),
+                    "Message": "Account deleted successfully",
+                    "User": email,                    
+                }, 
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+
+        elif isActive == "False":
+            user = User.objects.get(email = email)
+
+            user.isActive = False
+            user.save()
+             
+            return Response(
+                {
+                    "RequestId": str(uuid.uuid4()),
+                    "Message": "Settings saved successfully",
+                    "User": email,                    
+                }, 
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )    
+
+        elif email != None:
             # get current user
             user = User.objects.get(email = email)
-            print(user)
             
             # change user info
             if newName != None:
@@ -80,7 +116,6 @@ class UserSettings(APIView):
             
             # save the changes
             user.save()
-            print(user)
             
             return Response(
                 {
@@ -97,16 +132,5 @@ class UserSettings(APIView):
 
         return Response(
             {"Errors": "No matching email"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-
-    def get(self, request):
-        if User.objects.count != 0:
-            users = User.objects.all()
-            serializer = UserSerializer(users, many=True)
-            return Response(serializer.data)
-
-        return Response(
-            {"Errors": "No user objects exist!"},
             status=status.HTTP_400_BAD_REQUEST,
         )

@@ -10,7 +10,7 @@ class User(models.Model):
     password = models.CharField(max_length=50)
     phoneNumber = models.CharField(max_length=20)
     isAuthenticated = models.BooleanField(default=False)
-    isActive = models.BooleanField(default=False)
+    isActive = models.BooleanField(default=True)
 
     def __str__(self):
         return self.username

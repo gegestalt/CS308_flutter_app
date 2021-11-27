@@ -19,7 +19,7 @@ class _UserSettingsState extends State<UserSettings> {
   final _formkey = GlobalKey<FormState>();
 
   Future saveChanges() async {
-    // Local host for django and endpoint for signing up
+    // Local host for django and endpoint for user settings
     final url = Uri.parse('http://127.0.0.1:8000/api/settings');
 
     final requestBody = {
@@ -28,6 +28,8 @@ class _UserSettingsState extends State<UserSettings> {
       "name": editedname,
       "password": editedpassword,
       "phoneNumber": editedphonenumber,
+      "isActive": "",
+      "deleteAccount": "",
     };
 
     try {
@@ -48,9 +50,69 @@ class _UserSettingsState extends State<UserSettings> {
     }
   }
 
-  Future deactivateAccount() async {}
+  Future deactivateAccount() async {
+    // Local host for django and endpoint for user settings
+    final url = Uri.parse('http://127.0.0.1:8000/api/settings');
 
-  Future deleteAccount() async {}
+    final requestBody = {
+      "email": "remote@database.com", // For testing
+      "username": "",
+      "name": "",
+      "password": "",
+      "phoneNumber": "",
+      "isActive": "False",
+      "deleteAccount": "",
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
+
+  Future deleteAccount() async {
+    // Local host for django and endpoint for user settings
+    final url = Uri.parse('http://127.0.0.1:8000/api/settings');
+
+    final requestBody = {
+      "email": "remote@database.com", // For testing
+      "username": "",
+      "name": "",
+      "password": "",
+      "phoneNumber": "",
+      "isActive": "",
+      "deleteAccount": "True",
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
