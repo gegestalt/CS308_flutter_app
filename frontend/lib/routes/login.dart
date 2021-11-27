@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/routes/home.dart';
+import '../main.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
+import '../models/user.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -30,8 +31,9 @@ class _LogInState extends State<LogIn> {
       // TODO: verify the credentials
 
       isLoggedIn = true;
+      currentUser = User();
+
       Navigator.pushNamed(context, '/home');
-      // Redirect to another page
     }
 
     return Scaffold(

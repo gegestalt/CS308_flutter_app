@@ -8,8 +8,6 @@ import '../utils/eventcard.dart';
 import '../utils/announcementtile.dart';
 import '../utils/appbars.dart';
 
-bool isLoggedIn = false;
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
