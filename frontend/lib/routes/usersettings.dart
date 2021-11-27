@@ -42,6 +42,8 @@ class _UserSettingsState extends State<UserSettings> {
       // Succesfull transmission
       if (response.statusCode >= 200 && response.statusCode < 300) {
         print("Transmission was succesfull!!!");
+
+        Navigator.pushNamed(context, "/home");
       }
     } catch (error) {
       print("Error: $error");
@@ -74,6 +76,11 @@ class _UserSettingsState extends State<UserSettings> {
       // Succesfull transmission
       if (response.statusCode >= 200 && response.statusCode < 300) {
         print("Transmission was succesfull!!!");
+
+        isLoggedIn = false;
+        currentUser = null;
+
+        Navigator.pushNamed(context, "/home");
       }
     } catch (error) {
       print("Error: $error");
@@ -106,6 +113,11 @@ class _UserSettingsState extends State<UserSettings> {
       // Succesfull transmission
       if (response.statusCode >= 200 && response.statusCode < 300) {
         print("Transmission was succesfull!!!");
+
+        isLoggedIn = false;
+        currentUser = null;
+
+        Navigator.pushNamed(context, "/home");
       }
     } catch (error) {
       print("Error: $error");

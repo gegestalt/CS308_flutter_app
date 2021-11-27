@@ -50,7 +50,7 @@ class _LogInState extends State<LogIn> {
           print("Transmission was succesfull!!!");
 
           isLoggedIn = true;
-          currentUser = User();
+          currentUser = User.fromJson(jsonDecode(response.body));
 
           // Redirect to home page where the user is signed in
           Navigator.pushNamed(context, '/home');

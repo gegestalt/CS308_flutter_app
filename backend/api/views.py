@@ -154,7 +154,12 @@ class LogIn(APIView):
                 {
                     "RequestId": str(uuid.uuid4()),
                     "Message": "Correct password",
-                    "User": email,                    
+                    "email": email,
+                    "name": user.name,
+                    "username": user.username,
+                    "phoneNumber": user.phoneNumber,
+                    "isAuthenticated": user.isAuthenticated,
+                    "isActive": user.isActive,
                 }, 
                 status=status.HTTP_200_OK,
                 headers={
