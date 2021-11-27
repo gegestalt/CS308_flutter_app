@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/routes/home.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -23,9 +24,12 @@ class _LogInState extends State<LogIn> {
     Size size = MediaQuery.of(context).size;
     final _key = GlobalKey<FormState>();
 
-    // TODO: verify the credentials
     void loginUser() {
       print("email: $email, password: $password");
+
+      // TODO: verify the credentials
+
+      isLoggedIn = true;
       Navigator.pushNamed(context, '/home');
       // Redirect to another page
     }

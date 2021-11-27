@@ -1,28 +1,42 @@
 import 'package:flutter/material.dart';
+import '../routes/home.dart';
+
+AppBar selectAppbar(BuildContext context) {
+  if (isLoggedIn)
+    return finalAppbar(context);
+  else
+    return initialAppbar(context);
+}
 
 AppBar initialAppbar(BuildContext context) {
-  return AppBar(title: Text("Justicket"), actions: <Widget>[
-    RawMaterialButton(
-      onPressed: () {
-        Navigator.pushNamed(context, "/login");
-      },
-      child: Text(
-        "Login",
+  return AppBar(
+    title: Text("Justicket"),
+    automaticallyImplyLeading: false,
+    actions: <Widget>[
+      RawMaterialButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/login");
+        },
+        child: Text(
+          "Login",
+        ),
       ),
-    ),
-    RawMaterialButton(
+      RawMaterialButton(
         onPressed: () {
           Navigator.pushNamed(context, "/signup");
         },
         child: Text(
           "Sign Up",
-        ))
-  ]);
+        ),
+      )
+    ],
+  );
 }
 
 AppBar finalAppbar(BuildContext context) {
   return AppBar(
     title: Text("Justicket"),
+    automaticallyImplyLeading: false,
     actions: <Widget>[
       RawMaterialButton(
         onPressed: () {

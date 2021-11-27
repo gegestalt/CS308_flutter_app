@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:frontend/utils/appbars.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/models/event.dart';
-import '../utils/selecttickets.dart';
 
 class EventDetails extends StatefulWidget {
   const EventDetails({this.event});
@@ -27,6 +27,7 @@ class _EventDetailsState extends State<EventDetails> {
     if (media.width < 720) isSmallScreen = true;
 
     return Scaffold(
+      appBar: selectAppbar(context),
       body: ListView(
         padding: EdgeInsets.fromLTRB(100, 100, 100, 50),
         shrinkWrap: true,

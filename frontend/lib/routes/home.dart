@@ -6,6 +6,9 @@ import '../utils/eventslider.dart';
 import '../utils/animatedeventcard.dart';
 import '../utils/eventcard.dart';
 import '../utils/announcementtile.dart';
+import '../utils/appbars.dart';
+
+bool isLoggedIn = false;
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,41 +28,7 @@ class _HomePageState extends State<HomePage> {
     if (media.width < 550) smallScreen = true;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Justicket"),
-        actions: <Widget>[
-          RawMaterialButton(
-            onPressed: () {
-              setState(() {
-                Navigator.pushNamed(context, "/login");
-              });
-            },
-            child: Text(
-              "Login",
-            ),
-          ),
-          RawMaterialButton(
-            onPressed: () {
-              setState(() {
-                Navigator.pushNamed(context, "/signup");
-              });
-            },
-            child: Text(
-              "Sign Up",
-            ),
-          ),
-          RawMaterialButton(
-            onPressed: () {
-              setState(() {
-                Navigator.pushNamed(context, "/usersettings");
-              });
-            },
-            child: Text(
-              "Settings",
-            ),
-          ),
-        ],
-      ),
+      appBar: selectAppbar(context),
       body: ListView(
         children: [
           // Slider on top if the screen is small:
