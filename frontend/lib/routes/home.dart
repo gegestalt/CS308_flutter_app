@@ -1,56 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/constants.dart';
-import 'package:frontend/utils/eventcard.dart';
 import 'package:frontend/models/event.dart';
+import '../models/announcement.dart';
 import '../utils/eventslider.dart';
-
-List<Event> events = [
-  Event(
-    name: "Sample event 1",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/rave-concert-party-edm-festival-600w-1916911232.jpg",
-    date: "11.2.2021",
-    location: "Istnabul1",
-    time: "11.00",
-    performer: "Performer1",
-  ),
-  Event(
-    name: "Sample event 2",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/confetti-falling-on-festive-concert-600w-1147630022.jpg",
-    date: "11.2.2021",
-    location: "Istnabul2",
-    time: "11.00",
-    performer: "Performer2",
-  ),
-  Event(
-    name: "Sample event 3",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/confetti-falling-on-festive-concert-600w-1147630022.jpg",
-    date: "11.2.2021",
-    location: "Istnabul3",
-    time: "11.00",
-    performer: "Performer3",
-  ),
-  Event(
-    name: "Sample event 4",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/close-musician-hands-cello-on-600w-23285866.jpg",
-    date: "11.2.2021",
-    location: "Istnabul4",
-    time: "11.00",
-    performer: "Performer4",
-  ),
-  Event(
-    name: "Sample event 5",
-    thumbnail:
-        "https://image.shutterstock.com/image-photo/piano-flute-golden-shine-sheet-600w-516401134.jpg",
-    date: "11.2.2021",
-    location: "Istnabul5",
-    time: "11.00",
-    performer: "Performer5",
-  ),
-];
+import '../utils/animatedeventcard.dart';
+import '../utils/eventcard.dart';
+import '../utils/announcementtile.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -58,8 +13,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isSmallScreen = false;
+
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context).size;
+    bool smallScreen = false;
+
+    // Effective integer division, convert the result to int
+    final crossAxisCount = media.width ~/ 400;
+    if (media.width < 550) smallScreen = true;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Justicket"),
@@ -98,15 +62,33 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: [
+          // Slider on top if the screen is small:
+          smallScreen ? eventSlider() : Container(),
+
+          // If the screen is not small, slider and announcements in a row:
           Row(
             children: [
               // Image slider for featured events:
-              Expanded(child: eventSlider()),
-              // TODO: Add announcements, maybe?
+              !smallScreen
+                  ? Expanded(
+                      child: eventSlider(),
+                    )
+                  : Container(),
+
+              // Announcements list:
               Expanded(
                 child: Container(
-                  child: Center(
-                    child: Text("Announcements can come here!"),
+                  padding: EdgeInsets.all(10),
+                  height: 300,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: announcements.length,
+                    itemBuilder: (context, i) {
+                      return AnnouncementTile(
+                        announcement: announcements[i],
+                      );
+                    },
+                    separatorBuilder: (context, i) => Divider(),
                   ),
                 ),
               ),
@@ -114,29 +96,33 @@ class _HomePageState extends State<HomePage> {
           ),
 
           SizedBox(
-            height: 16,
+            height: 10,
           ),
 
           // List of events:
-          GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 2,
-                crossAxisCount: 3,
-              ),
-              itemCount: events.length,
-              itemBuilder: (context, i) {
-                return GestureDetector(
-                  onTap: () {
-                    // TODO: Redirect to events detailed page
-                    var url = imageList[i];
-                    print("Clicked on ${events[i].name}");
-                  },
-                  child: EventCard(
-                    event: events[i],
+          crossAxisCount > 0
+              ? GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 2,
+                    crossAxisCount: crossAxisCount,
                   ),
-                );
-              }),
+                  itemCount: events.length,
+                  itemBuilder: (context, i) {
+                    return AnimatedEventCard(
+                      event: events[i],
+                    );
+                  },
+                )
+              : Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    for (var e in events)
+                      SmallEventCard(
+                        event: e,
+                      ),
+                  ],
+                ),
         ],
       ),
     );
