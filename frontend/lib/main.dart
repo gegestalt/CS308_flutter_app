@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
-      home: UserSettings(),
+      home: HomePage(),
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),

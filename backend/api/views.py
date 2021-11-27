@@ -134,3 +134,36 @@ class UserSettings(APIView):
             {"Errors": "No matching email"},
             status=status.HTTP_400_BAD_REQUEST,
         )
+
+
+class LogIn(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+
+        email = request.data["email"]
+        password = request.data["password"]
+
+        user = User.objects.get(email = email)
+
+        if password == user.password:
+            # Correct password
+
+            return Response(
+                {
+                    "RequestId": str(uuid.uuid4()),
+                    "Message": "Correct password",
+                    "User": email,                    
+                }, 
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+
+        return Response(
+            {"Errors": "Wrong password!"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
