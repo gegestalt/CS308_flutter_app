@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/navigation_drawer_widget.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/models/event.dart';
 import '../models/announcement.dart';
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     if (media.width < 550) smallScreen = true;
 
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       appBar: selectAppbar(context),
       body: ListView(
         children: [

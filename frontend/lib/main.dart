@@ -19,6 +19,7 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
+  
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Justicket',
@@ -36,5 +37,8 @@ class MyApp extends StatelessWidget {
         '/usersettings': (context) => UserSettings(),
       },
     );
+    
   }
+ 
+  
 }
