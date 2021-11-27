@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/appbars.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../main.dart';
 
 class UserSettings extends StatefulWidget {
   @override
@@ -10,7 +11,6 @@ class UserSettings extends StatefulWidget {
 }
 
 class _UserSettingsState extends State<UserSettings> {
-  String myUsername = "";
   String editedname = "";
   String editedusername = "";
   String editedpassword = "";
@@ -23,7 +23,7 @@ class _UserSettingsState extends State<UserSettings> {
     final url = Uri.parse('http://127.0.0.1:8000/api/settings');
 
     final requestBody = {
-      "email": "remote@database.com", // For testing
+      "email": currentUser.email,
       "username": editedusername,
       "name": editedname,
       "password": editedpassword,
@@ -55,7 +55,7 @@ class _UserSettingsState extends State<UserSettings> {
     final url = Uri.parse('http://127.0.0.1:8000/api/settings');
 
     final requestBody = {
-      "email": "remote@database.com", // For testing
+      "email": currentUser.email,
       "username": "",
       "name": "",
       "password": "",
@@ -87,7 +87,7 @@ class _UserSettingsState extends State<UserSettings> {
     final url = Uri.parse('http://127.0.0.1:8000/api/settings');
 
     final requestBody = {
-      "email": "remote@database.com", // For testing
+      "email": currentUser.email,
       "username": "",
       "name": "",
       "password": "",

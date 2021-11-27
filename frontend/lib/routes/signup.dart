@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend/main.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
+import '../models/user.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -52,6 +54,17 @@ class _SignUpState extends State<SignUp> {
         // Succesfull transmission
         if (response.statusCode >= 200 && response.statusCode < 300) {
           print("Transmission was succesfull!!!");
+
+          isLoggedIn = true;
+          currentUser = User(
+            email: email,
+            username: username,
+            name: name,
+            password: password,
+            phoneNumber: "default",
+            isAuthenticated: false,
+            isActive: true,
+          );
 
           // Redirect to home page where the user is signed in
           Navigator.pushNamed(context, '/home');

@@ -105,13 +105,13 @@ class UserSettings(APIView):
             user = User.objects.get(email = email)
             
             # change user info
-            if newName != None:
+            if newName != "":
                 user.name = newName
-            if newUsername != None:
+            if newUsername != "":
                 user.username = newUsername
-            if newPassword != None:
+            if newPassword != "":
                 user.password = newPassword
-            if newPhonenumber != None:
+            if newPhonenumber != "":
                 user.phoneNumber = newPhonenumber
             
             # save the changes
