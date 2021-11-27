@@ -23,13 +23,13 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
-      home: HomePage(),
+      home: UserSettings(),
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),
         '/login': (context) => LogIn(),
         '/event-details': (context) => EventDetails(),
-        '/usersettings':(context) =>UserSettings(),
+        '/usersettings': (context) => UserSettings(),
       },
     );
     
