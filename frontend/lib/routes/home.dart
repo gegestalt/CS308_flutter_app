@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/main.dart';
 import 'package:frontend/models/navigation_drawer_widget.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/models/event.dart';
@@ -9,8 +8,6 @@ import '../utils/animatedeventcard.dart';
 import '../utils/eventcard.dart';
 import '../utils/announcementtile.dart';
 import '../utils/appbars.dart';
-
-bool isLoggedIn = false;
 
 class HomePage extends StatefulWidget {
   @override

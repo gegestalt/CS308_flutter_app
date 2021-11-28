@@ -6,6 +6,11 @@ import 'routes/signup.dart';
 import 'routes/login.dart';
 import 'routes/eventdetails.dart';
 import 'routes/usersettings.dart';
+import 'models/user.dart';
+
+// Can be retrieved from sharedpref or cache in initstate of MyApp
+bool isLoggedIn = false;
+User currentUser;
 
 void main() {
   runApp(MyApp());
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
-      home: UserSettings(),
+      home: HomePage(),
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),

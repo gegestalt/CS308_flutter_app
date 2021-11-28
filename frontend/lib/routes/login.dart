@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/routes/home.dart';
+import '../main.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
+import '../models/user.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LogIn extends StatefulWidget {
   @override
@@ -24,14 +27,39 @@ class _LogInState extends State<LogIn> {
     Size size = MediaQuery.of(context).size;
     final _key = GlobalKey<FormState>();
 
-    void loginUser() {
+    Future loginUser() async {
       print("email: $email, password: $password");
 
-      // TODO: verify the credentials
+      // Local host for django and endpoint for signing up
+      final url = Uri.parse('http://127.0.0.1:8000/api/log-in');
 
-      isLoggedIn = true;
-      Navigator.pushNamed(context, '/home');
-      // Redirect to another page
+      final requestBody = {
+        "email": email,
+        "password": password,
+      };
+
+      try {
+        final response = await http.post(
+          url,
+          body: requestBody,
+          encoding: Encoding.getByName("utf-8"),
+        );
+
+        // Succesfull transmission
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+          print("Transmission was succesfull!!!");
+
+          isLoggedIn = true;
+          currentUser = User.fromJson(jsonDecode(response.body));
+
+          // Redirect to home page where the user is signed in
+          Navigator.pushNamed(context, '/home');
+        }
+      } catch (error) {
+        print("Error: $error");
+
+        // An error occured, please try again later.
+      }
     }
 
     return Scaffold(
