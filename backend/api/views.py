@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import authentication, permissions, status
 from rest_framework.response import Response
 from .serializers import *
+from .models import *
 import uuid
 
 # Create your views here.
@@ -171,4 +172,60 @@ class LogIn(APIView):
         return Response(
             {"Errors": "Wrong password!"},
             status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+class HomePage(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+
+        # if featured return featured events
+        # if normal return all events
+
+        email = request.data["email"]
+        type = request.data["type"]
+        events = []
+
+        if type == "":
+            return Response(
+                    {"Errors": "Not a valid type."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        if email != "":
+            # return events with regard to users previous activities maybe?
+
+            user = User.objects.get(email = email)
+            
+            try:
+                events = Event.objects.filter(type=type)
+                serialized = EventSerializer(events, many=True)
+            except:
+                return Response(
+                    {"Errors": "Error while filtering or serializing!"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        else:
+            # get events
+            try:
+                events = Event.objects.filter(type=type)
+                serialized = EventSerializer(events, many=True)
+            except:
+                return Response(
+                    {"Errors": "Error while filtering or serializing!"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        
+
+        return Response(
+            serialized.data,
+            status=status.HTTP_200_OK,
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+            }
         )
