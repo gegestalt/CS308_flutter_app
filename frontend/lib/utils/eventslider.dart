@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/event.dart';
 import '../routes/eventdetails.dart';
 
-Widget eventSlider() {
+Widget eventSlider(List<Event> events) {
+  print(events);
   return Container(
     margin: EdgeInsets.all(15),
     child: CarouselSlider.builder(
-      itemCount: featuredEvents.length,
+      itemCount: events.length,
       options: CarouselOptions(
         enlargeCenterPage: true,
         height: 300,
@@ -26,11 +27,13 @@ Widget eventSlider() {
                 )),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                featuredEvents[i].thumbnail,
-                width: 500,
-                fit: BoxFit.cover,
-              ),
+              child: events.isNotEmpty
+                  ? Image.network(
+                      events[i].thumbnail,
+                      width: 500,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(),
             ),
           ),
           onTap: () {
@@ -41,7 +44,7 @@ Widget eventSlider() {
               context,
               MaterialPageRoute(
                 builder: (context) => EventDetails(
-                  event: featuredEvents[i],
+                  event: events[i],
                 ),
               ),
             );
