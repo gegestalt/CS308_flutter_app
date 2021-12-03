@@ -229,3 +229,27 @@ class HomePage(APIView):
                 "Access-Control-Allow-Headers": "*",
             }
         )
+
+
+class Announcements(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def get(self, request):
+        if Announcement.objects.count != 0:
+            announcements = Announcement.objects.all()
+            serializer = AnnouncementSerializer(announcements, many=True)
+            return Response(
+                serializer.data,
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                },
+            )
+
+        return Response(
+            {"Errors": "No announcement objects exist!"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+

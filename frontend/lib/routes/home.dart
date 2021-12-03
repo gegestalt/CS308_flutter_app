@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/models/navigation_drawer_widget.dart';
-import 'package:frontend/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend/models/event.dart';
@@ -21,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   bool isSmallScreen = false;
   List<Event> events = [];
   List<Event> featuredEvents = [];
+  List<Announcement> announcements = [];
 
   Future getEvents(String type) async {
     // Local host for django and endpoint for homepage
@@ -49,14 +49,37 @@ class _HomePageState extends State<HomePage> {
           setState(() {});
         } else if (type == "featured") {
           final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-          print("parsed featured: ");
-          print(parsed);
           featuredEvents =
               parsed.map<Event>((json) => Event.fromJson(json)).toList();
 
-          print(featuredEvents);
           setState(() {});
         }
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
+
+  Future getAnnouncements() async {
+    // Local host for django and endpoint for announcements
+    final url = Uri.parse('http://127.0.0.1:8000/api/announcements');
+
+    try {
+      final response = await http.get(url);
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+
+        final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+
+        announcements = parsed
+            .map<Announcement>((json) => Announcement.fromJson(json))
+            .toList();
+
+        setState(() {});
       }
     } catch (error) {
       print("Error: $error");
@@ -69,6 +92,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     getEvents("featured");
     getEvents("normal");
+    getAnnouncements();
     super.initState();
   }
 

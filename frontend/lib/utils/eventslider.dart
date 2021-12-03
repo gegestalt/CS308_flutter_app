@@ -4,7 +4,6 @@ import 'package:frontend/models/event.dart';
 import '../routes/eventdetails.dart';
 
 Widget eventSlider(List<Event> events) {
-  print(events);
   return Container(
     margin: EdgeInsets.all(15),
     child: CarouselSlider.builder(

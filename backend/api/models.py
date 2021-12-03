@@ -1,3 +1,4 @@
+from typing import ContextManager
 from django.db import models
 
 # Create your models here.
@@ -31,3 +32,12 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Announcement(models.Model):
+    announcementID = models.AutoField(primary_key=True, unique=True)
+    content = models.CharField(max_length=250)
+    date = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.content
