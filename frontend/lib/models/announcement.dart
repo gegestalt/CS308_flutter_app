@@ -3,9 +3,16 @@ class Announcement {
   final String date;
 
   Announcement({this.content, this.date});
+
+  factory Announcement.fromJson(Map<String, dynamic> json) {
+    return Announcement(
+      content: json['content'],
+      date: json['date'],
+    );
+  }
 }
 
-List<Announcement> announcements = [
+List<Announcement> hardcodedAnnouncements = [
   Announcement(
     content: "The home page is done!!!",
     date: "25.11.2021",

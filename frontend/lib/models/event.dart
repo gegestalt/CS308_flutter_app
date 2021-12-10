@@ -19,9 +19,22 @@ class Event {
     this.rules = "Default rule placeholder.\nThis is after new line.",
     this.prices = "Adult - 100USD\nStudent - 50USD",
   });
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      name: json['name'],
+      thumbnail: json['thumbnail'],
+      performer: json["performer"],
+      date: json["date"],
+      location: json["location"],
+      time: json["time"],
+      rules: json["rules"],
+      prices: json["prices"],
+    );
+  }
 }
 
-List<Event> events = [
+List<Event> hardcodedEvents = [
   Event(
     name: "Sample event 1",
     thumbnail:
@@ -69,7 +82,7 @@ List<Event> events = [
   ),
 ];
 
-List<Event> featuredEvents = [
+List<Event> hardcodedFeaturedEvents = [
   Event(
     name: "featured event 1",
     thumbnail:
