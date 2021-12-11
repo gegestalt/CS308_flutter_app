@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/main.dart';
-import 'package:frontend/models/navigation_drawer_widget.dart';
+import 'package:frontend/models/sidebar.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend/models/event.dart';
@@ -106,8 +107,9 @@ class _HomePageState extends State<HomePage> {
     if (media.width < 550) smallScreen = true;
 
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
       appBar: selectAppbar(context),
+      
+      drawer: SideDrawer(),
       body: ListView(
         children: [
           // Slider on top if the screen is small:
