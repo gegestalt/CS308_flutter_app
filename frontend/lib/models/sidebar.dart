@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/main.dart';
+import 'package:frontend/routes/login.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({Key key}) : super(key: key);
@@ -9,18 +11,26 @@ class SideDrawer extends StatelessWidget {
         child: Drawer(
       child: ListView(
         children: [
-          ListTile(
-            title: Text('Menu'),
-            onTap: () => Navigator.pushReplacementNamed(
-              context,
-              'home',
-            ),
+          UserAccountsDrawerHeader(
+            accountName: Text(currentUser.name),
+            accountEmail: Text(currentUser.email),
           ),
+          ListTile(),
           ListTile(
             title: Text('User Settings'),
+            subtitle: Text('View your user settings'),
+            leading: Icon(Icons.settings_accessibility),
             onTap: () => Navigator.pushNamed(
               context,
               '/usersettings',
+            ),
+          ),
+          ListTile(
+            title: Text('Notifications'),
+            leading: Icon(Icons.notification_add),
+            onTap: () => Navigator.pushNamed(
+              context,
+              '/notifications',
             ),
           ),
         ],
