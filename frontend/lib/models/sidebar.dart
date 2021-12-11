@@ -33,6 +33,15 @@ class SideDrawer extends StatelessWidget {
               '/notifications',
             ),
           ),
+          ListTile(
+            title: Text('Purchase'),
+            subtitle: Text('Purchase desired tickets from here...'),
+            leading: Icon(Icons.wallet_giftcard_rounded),
+            onTap: () => Navigator.pushNamed(
+              context,
+              '/notifications',
+            ),
+          )
         ],
       ),
     ));
