@@ -6,17 +6,25 @@ class SideDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:Drawer(
-        child:  ListView(
-          children: [
-            ListTile(
-                title:Text('Menu'),
-                onTap: () => Navigator.pushReplacementNamed(context, 'home',
-                ),
-            )
-          ],
-        ),
-      )
-    );
+        child: Drawer(
+      child: ListView(
+        children: [
+          ListTile(
+            title: Text('Menu'),
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              'home',
+            ),
+          ),
+          ListTile(
+            title: Text('User Settings'),
+            onTap: () => Navigator.pushNamed(
+              context,
+              '/usersettings',
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }
