@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
-import 'package:frontend/models/navigation_drawer_widget.dart';
+
 import 'package:flutter/widgets.dart';
 
 AppBar selectAppbar(BuildContext context) {
@@ -15,9 +15,7 @@ AppBar initialAppbar(BuildContext context) {
     title: Text("Justicket"),
     automaticallyImplyLeading: false,
     leading: GestureDetector(
-        onTap: () {
-          NavigationDrawerWidget();
-        },
+        
         child: Icon(Icons.menu)),
     actions: <Widget>[
       RawMaterialButton(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'utils/constants.dart';
 import 'routes/home.dart';
 import 'routes/signup.dart';
@@ -16,11 +17,14 @@ void main() {
   runApp(MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
   
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       title: 'Justicket',
       theme: ThemeData(
@@ -36,9 +40,11 @@ class MyApp extends StatelessWidget {
         '/event-details': (context) => EventDetails(),
         '/usersettings': (context) => UserSettings(),
       },
+      
     );
-    
+   
   }
  
   
 }
+
