@@ -12,17 +12,18 @@ class CheckOut extends StatefulWidget {
 class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      margin: EdgeInsets.fromLTRB(150, 100, 150, 20),
-      child: Row(
-        children: [
-          // Timer box with selected details
-          Timer(),
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.fromLTRB(150, 100, 150, 20),
+        child: Wrap(
+          children: [
+            // Billing information
+            BillingForm(),
 
-          // Billing information
-          BillingForm(),
-        ],
+            // Timer box with selected details
+            Timer(),
+          ],
+        ),
       ),
     );
   }
@@ -33,25 +34,78 @@ class BillingForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _key = GlobalKey<FormState>();
+    final _billingKey = GlobalKey<FormState>();
     final media = MediaQuery.of(context).size;
+    final contWidth = media.width - 300;
 
     return Container(
-      height: media.height,
-      width: media.width,
+      color: Colors.pinkAccent,
+      height: 500,
+      width: contWidth / 2,
+      padding: EdgeInsets.all(20),
       child: Form(
-        key: _key,
+        key: _billingKey,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Card(
-                child: Row(
-                  children: [
-                    Text("Name"),
-                    TextFormField(),
-                  ],
+              Center(
+                child: Text(
+                  "Billing Information",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
               ),
+              Text("Name"),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please don't leave this space empty!";
+                  }
+                  return null;
+                },
+                onSaved: (value) {},
+              ),
+              SizedBox(height: 20),
+              Text("Surname"),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text("Address"),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text("Country"),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text("City"),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text("Zip Code"),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
