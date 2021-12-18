@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'utils/constants.dart';
 import 'routes/home.dart';
 import 'routes/signup.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
-      home: CheckOut(), //temporary!!!
+      home: HomePage(),
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),
