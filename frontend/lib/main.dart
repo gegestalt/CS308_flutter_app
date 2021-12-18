@@ -6,6 +6,7 @@ import 'routes/signup.dart';
 import 'routes/login.dart';
 import 'routes/eventdetails.dart';
 import 'routes/usersettings.dart';
+import 'routes/checkout.dart';
 import 'models/user.dart';
 
 // Can be retrieved from sharedpref or cache in initstate of MyApp
@@ -19,7 +20,6 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
-  
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Justicket',
@@ -28,17 +28,15 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
-      home: HomePage(),
+      home: CheckOut(), //temporary!!!
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),
         '/login': (context) => LogIn(),
         '/event-details': (context) => EventDetails(),
         '/usersettings': (context) => UserSettings(),
+        '/checkout': (context) => CheckOut(),
       },
     );
-    
   }
- 
-  
 }
