@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'utils/constants.dart';
 import 'routes/home.dart';
 import 'routes/signup.dart';
@@ -8,6 +7,7 @@ import 'routes/login.dart';
 import 'routes/eventdetails.dart';
 import 'routes/usersettings.dart';
 import 'routes/checkout.dart';
+import 'routes/payment.dart';
 import 'models/user.dart';
 
 // Can be retrieved from sharedpref or cache in initstate of MyApp
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/event-details': (context) => EventDetails(),
         '/usersettings': (context) => UserSettings(),
         '/checkout': (context) => CheckOut(),
+        'payment': (context) => Payment()
       },
     );
   }

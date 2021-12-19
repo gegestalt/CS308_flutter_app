@@ -108,6 +108,7 @@ class _DetailsState extends State<Details> {
           ),
           SizedBox(height: 30),
           Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text("Remaining Time:"),
               Timer(),
@@ -152,7 +153,6 @@ class BillingForm extends StatelessWidget {
     final contWidth = media.width - 300;
 
     return Container(
-      color: Colors.grey,
       padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
       child: Form(
         key: _billingKey,
