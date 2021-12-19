@@ -79,7 +79,7 @@ class _EventDetailsState extends State<EventDetails> {
   }
 
   Future joinWaitingList() async {
-    // Local host for django and endpoint for details
+    // Local host for django and endpoint for joining waiting list
     final url = Uri.parse('http://127.0.0.1:8000/api/waiting-list');
 
     final requestBody = {
@@ -110,8 +110,39 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
+  Future leaveWaitingList() async {
+    // Local host for django and endpoint for leaving waiting list
+    final url = Uri.parse('http://127.0.0.1:8000/api/leave-waiting-list');
+
+    final requestBody = {
+      "useremail": "test@test.com", //currentUser.email,
+      "eventID": widget.event.id,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission means that user was removed from the list
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+
+        setState(() {
+          waiting = false;
+        });
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
+
   Future checkWaitingList() async {
-    // Local host for django and endpoint for details
+    // Local host for django and endpoint for checking waiting list
     final url = Uri.parse('http://127.0.0.1:8000/api/check-waiting-list');
 
     final requestBody = {
@@ -306,7 +337,8 @@ class _EventDetailsState extends State<EventDetails> {
                                           children: [
                                             Text("You are in waiting list."),
                                             TextButton(
-                                              onPressed: () {},
+                                              onPressed: () =>
+                                                  leaveWaitingList(),
                                               child:
                                                   Text("Leave waiting list."),
                                             ),

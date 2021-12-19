@@ -13,4 +13,5 @@ urlpatterns = [
     path("discount", Discount.as_view(), name="discount"),
     path("waiting-list", JoinWaitingList.as_view(), name="waiting-list"),
     path("check-waiting-list", CheckWaitingList.as_view(), name="check-waiting-list"),
+    path("leave-waiting-list", LeaveWaitingList.as_view(), name="leave-waiting-list"),
 ]
