@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .serializers import *
 from .models import *
 import uuid
+from datetime import date
 
 # Create your views here.
 class SignUp(APIView):
@@ -311,6 +312,51 @@ class MakePurchase(APIView):
                 "Access-Control-Allow-Headers": "*",
             }
         )
+
+
+class Discount(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+
+        code = request.data["code"]       
+
+        # Check if the code is valid
+        try:
+            if code != None:
+                discount = DiscountCode.objects.get(code=code)
+
+                if discount != None:
+                    today = date.today()
+                    
+                    if discount.start.date() < today and discount.end.date() > today:
+                        # Code is entered within discount dates        
+
+                        return Response(
+                            {"discount": discount.discount},
+                            status=status.HTTP_200_OK,
+                            headers={
+                                "Access-Control-Allow-Origin": "*",
+                                "Access-Control-Allow-Headers": "*",
+                            }
+                        )
+
+                    return Response(
+                        status=status.HTTP_400_BAD_REQUEST,
+                        headers={
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                        }
+                    )
+        except:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
         
 
 

@@ -29,17 +29,17 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
+      home: HomePage(),
       /*
       home: CheckOut(
-        eventname: "deneme",
-        date: "2021-09-09",
-        type: "Loca",
-        price: "100",
+        eventname: "Sample",
+        date: "1222",
+        type: "loca",
         number: "2",
+        price: "100",
         total: "200",
       ),
       */
-      home: HomePage(),
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),
