@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/routes/home.dart';
 
 class FeedbackPage extends StatefulWidget {
   @override
@@ -21,8 +22,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          icon: Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pushNamed(context, '/home'),
         ),
       ),
       body: Padding(
