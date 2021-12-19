@@ -270,18 +270,26 @@ class EventDetails(APIView):
             tickets = Ticket.objects.filter(eventID=eventID)
 
             for t in tickets:
-                print(t)
+                # print(t)
                 rspList.append({
                     "category":t.category,
                     "price": t.price,
                     "date":t.date,
                 })
 
-            print(rspList)
+            # print(rspList)
 
             return Response(
-            rspList,
-            status=status.HTTP_200_OK,
+                rspList,
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+
+        return Response(
+            status=status.HTTP_400_BAD_REQUEST,
             headers={
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Headers": "*",
@@ -357,6 +365,110 @@ class Discount(APIView):
                     "Access-Control-Allow-Headers": "*",
                 }
             )
-        
 
 
+class JoinWaitingList(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+        id = request.data["eventID"]
+        useremail = request.data["useremail"]
+
+        try:
+            event = Event.objects.get(eventID=id)
+
+            # If there is no available tickets:
+            if event.availableTickets == 0:
+                user = User.objects.get(email=useremail)                
+                list = WaitingList.objects.get(event=event)
+                list.user.add(user)
+
+                return Response(
+                    status=status.HTTP_200_OK,
+                    headers={
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                    }
+                )
+            else:
+                raise
+        except:
+            print("Something went wrong!")
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+
+
+class CheckWaitingList(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+
+        eventID = request.data["eventID"]
+        mail = request.data["useremail"]
+        rsp = ""
+
+        # If user is in waiting list
+        user = User.objects.get(email=mail)
+        event = Event.objects.get(eventID=eventID)
+        list = WaitingList.objects.filter(event=event).filter(user=user)
+
+        if list.exists():
+            rsp = "true"
+
+            return Response(
+                rsp,
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+
+        return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+
+
+class LeaveWaitingList(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+        id = request.data["eventID"]
+        useremail = request.data["useremail"]
+
+        try:
+            event = Event.objects.get(eventID=id)
+            user = User.objects.get(email=useremail)                
+            
+            list = WaitingList.objects.get(event=event)
+            list.user.remove(user)
+
+            return Response(
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
+            
+        except:
+            print("Something went wrong!")
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
