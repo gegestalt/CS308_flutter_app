@@ -110,10 +110,48 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
+  Future checkWaitingList() async {
+    // Local host for django and endpoint for details
+    final url = Uri.parse('http://127.0.0.1:8000/api/check-waiting-list');
+
+    final requestBody = {
+      "useremail": "test@test.com", //currentUser.email,
+      "eventID": widget.event.id,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+
+        print(response.body);
+        var rsp = json.decode(response.body);
+
+        // If already in waiting list:
+        if (rsp == "true") {
+          setState(() {
+            waiting = true;
+          });
+        }
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getDetails();
+    checkWaitingList();
   }
 
   @override
