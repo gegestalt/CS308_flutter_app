@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/constants.dart';
 import '../utils/countdown.dart';
+import 'payment.dart';
+import 'package:frontend/utils/constants.dart';
 
 class CheckOut extends StatefulWidget {
   const CheckOut({Key key}) : super(key: key);
@@ -15,10 +16,17 @@ class _CheckOutState extends State<CheckOut> {
     final media = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        title: Text(
+          "Step 1: Billing Information",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Container(
         margin: media.width > 900
-            ? EdgeInsets.fromLTRB(150, 100, 150, 20)
-            : EdgeInsets.fromLTRB(50, 100, 50, 20),
+            ? EdgeInsets.fromLTRB(150, 20, 150, 20)
+            : EdgeInsets.fromLTRB(50, 20, 50, 20),
         child: media.width > 900
             ? Row(
                 children: [
@@ -35,7 +43,9 @@ class _CheckOutState extends State<CheckOut> {
                 children: [
                   // Billing information
                   BillingForm(),
+
                   SizedBox(height: 50),
+
                   // Timer box with selected details
                   Details(),
                 ],
@@ -53,6 +63,8 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  final _discountKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,12 +116,20 @@ class _DetailsState extends State<Details> {
           SizedBox(height: 20),
           Text("Discount Code:"),
           Form(
+            key: _discountKey,
             child: TextFormField(),
           ),
           SizedBox(height: 20),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Payment(),
+                  ),
+                );
+              },
               child: Text("Continue"),
               style: ElevatedButton.styleFrom(
                 primary: kPrimaryColor,
