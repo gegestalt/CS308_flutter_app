@@ -271,7 +271,9 @@ class EventDetails(APIView):
             for t in tickets:
                 print(t)
                 rspList.append({
-                    t.category: t.price
+                    "category":t.category,
+                    "price": t.price,
+                    "date":t.date,
                 })
 
             print(rspList)

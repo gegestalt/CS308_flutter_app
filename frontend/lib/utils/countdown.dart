@@ -9,6 +9,8 @@ class Timer extends StatefulWidget {
 }
 
 class _TimerState extends State<Timer> {
+  CountdownTimer countDownTimer;
+  var sub;
   Duration timer = Duration(minutes: 5);
   Duration current;
   String timerText = "5:00";
@@ -19,13 +21,20 @@ class _TimerState extends State<Timer> {
     startTimer();
   }
 
+  @override
+  void dispose() {
+    countDownTimer = null;
+    sub.cancel();
+    super.dispose();
+  }
+
   void startTimer() {
-    CountdownTimer countDownTimer = new CountdownTimer(
+    countDownTimer = new CountdownTimer(
       timer,
       new Duration(seconds: 1),
     );
 
-    var sub = countDownTimer.listen(null);
+    sub = countDownTimer.listen(null);
     sub.onData((duration) {
       setState(() {
         //_current = _start - duration.elapsed.inSeconds;
