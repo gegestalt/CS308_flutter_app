@@ -306,6 +306,8 @@ class _EventDetailsState extends State<EventDetails> {
             runSpacing: 20,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     height: 300,
@@ -446,14 +448,33 @@ class _EventDetailsState extends State<EventDetails> {
                       ),
                     ),
                   ),
+
+                  SizedBox(height: 20),
+
+                  // Seating Plan:
+                  widget.event.seatingPlan != null
+                      ? Container(
+                          width: isSmallScreen
+                              ? media.width
+                              : scaffoldSize * (2 / 3),
+                          child: Image.network(
+                            widget.event.seatingPlan,
+                          ),
+                        )
+                      : Container(
+                          width: isSmallScreen
+                              ? media.width
+                              : scaffoldSize * (2 / 3),
+                        ),
                 ],
               ),
               !isSmallScreen
                   ? SizedBox(
-                      width: 20,
+                      width: 10,
                     )
                   : Container(),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: 500,
@@ -537,9 +558,13 @@ class _EventDetailsState extends State<EventDetails> {
                       ),
                     ),
                   ),
+
                   // QR CODE IS DONE FOR EVALUATION
                   Container(
-                    child: Html(data:"<a href='https://form.jotform.com/Demirci_Emre/justicket-evaluation-form' rel='no-follow'><img src='https://www.jotform.com/uploads/Demirci_Emre/form_files/213453479284059_1639910883_qrcode_muse.png' width='100%' style='max-width: 200px' alt='QR Code for Jotform form'/></a>"),
+                    width: isSmallScreen ? media.width : scaffoldSize * (1 / 3),
+                    child: Html(
+                        data:
+                            "<a href='https://form.jotform.com/Demirci_Emre/justicket-evaluation-form' rel='no-follow'><img src='https://www.jotform.com/uploads/Demirci_Emre/form_files/213453479284059_1639910883_qrcode_muse.png' width='100%' style='max-width: 200px' alt='QR Code for Jotform form'/></a>"),
                   )
                 ],
               ),
