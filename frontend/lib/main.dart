@@ -20,7 +20,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,16 +30,6 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.secularOneTextTheme(),
       ),
       home: HomePage(),
-      /*
-      home: CheckOut(
-        eventname: "Sample",
-        date: "1222",
-        type: "loca",
-        number: "2",
-        price: "100",
-        total: "200",
-      ),
-      */
       routes: {
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUp(),
@@ -48,7 +37,7 @@ class MyApp extends StatelessWidget {
         '/event-details': (context) => EventDetails(),
         '/usersettings': (context) => UserSettings(),
         '/checkout': (context) => CheckOut(),
-        'payment': (context) => Payment(),
+        '/payment': (context) => Payment(),
         '/feedbackpage': (context) => FeedbackPage()
       },
     );

@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 AppBar selectAppbar(BuildContext context) {
   if (isLoggedIn)
     return finalAppbar(context);
@@ -19,7 +21,6 @@ AppBar initialAppbar(BuildContext context) {
     automaticallyImplyLeading: false,
     leading: GestureDetector(child: Icon(Icons.menu)),
     actions: <Widget>[
-
       RawMaterialButton(
         onPressed: () {
           Navigator.pushNamed(context, "/login");
@@ -47,9 +48,10 @@ AppBar finalAppbar(BuildContext context) {
     automaticallyImplyLeading: false,
     actions: <Widget>[
       RawMaterialButton(
-        onPressed: () async{
-          final url = "https://form.jotform.com/Demirci_Emre/justicket-evaluation-form";
-          html.window.open(url,'new_tab');
+        onPressed: () async {
+          final url =
+              "https://form.jotform.com/Demirci_Emre/justicket-evaluation-form";
+          html.window.open(url, 'new_tab');
         },
         child: Text(
           "Rate Events",
@@ -86,6 +88,23 @@ AppBar finalAppbar(BuildContext context) {
           "Search",
         ),
       ),
+      RawMaterialButton(
+        onPressed: () {
+          setPrefs();
+          Navigator.pushNamed(context, "/home");
+        },
+        child: Text(
+          "Sign Out",
+        ),
+      ),
     ],
   );
+}
+
+Future setPrefs() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+
+  isLoggedIn = false;
+  currentUser = null;
 }
