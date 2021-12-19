@@ -9,6 +9,9 @@ class Event {
   final String time;
   final String rules;
   final String prices;
+  final String seatingPlan;
+  final int totalTickets;
+  final int availableTickets;
 
   Event({
     this.id,
@@ -18,8 +21,11 @@ class Event {
     this.date,
     this.time,
     this.performer,
-    this.rules = "Default rule placeholder.\nThis is after new line.",
-    this.prices = "Adult - 100USD\nStudent - 50USD",
+    this.rules,
+    this.prices,
+    this.seatingPlan,
+    this.totalTickets,
+    this.availableTickets,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -33,6 +39,9 @@ class Event {
       time: json["time"],
       rules: json["rules"],
       prices: json["prices"],
+      seatingPlan: json["seatingPlan"],
+      totalTickets: json["totalTickets"],
+      availableTickets: json["availableTickets"],
     );
   }
 }
