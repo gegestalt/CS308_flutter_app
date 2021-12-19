@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         '/checkout': (context) => CheckOut(),
         'payment': (context) => Payment(),
         '/feedbackpage': (context) => FeedbackPage(),
-        '/upcomingEvents':(context) => UpcomingEventsPage()
+        '/upcomingevents': (context) => UpcomingEventsPage()
       },
     );
   }

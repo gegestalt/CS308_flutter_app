@@ -28,6 +28,7 @@ class SideDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text('Upcoming Events'),
+            subtitle: Text('View Upcoming Events'),
             leading: Icon(Icons.access_alarms),
             onTap: () => Navigator.pushNamed(
               context,
