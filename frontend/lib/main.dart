@@ -9,6 +9,7 @@ import 'routes/usersettings.dart';
 import 'routes/checkout.dart';
 import 'routes/payment.dart';
 import 'models/user.dart';
+import 'routes/feedbackpage.dart';
 
 // Can be retrieved from sharedpref or cache in initstate of MyApp
 bool isLoggedIn = false;
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         '/event-details': (context) => EventDetails(),
         '/usersettings': (context) => UserSettings(),
         '/checkout': (context) => CheckOut(),
-        'payment': (context) => Payment()
+        'payment': (context) => Payment(),
+        '/feedbackpage': (context) => FeedbackPage()
       },
     );
   }

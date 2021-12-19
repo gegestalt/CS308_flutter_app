@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:expandable_text/expandable_text.dart';
+
 import 'package:frontend/models/event.dart';
 import 'package:frontend/utils/constants.dart';
 

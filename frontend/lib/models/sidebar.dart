@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/routes/login.dart';
+import 'package:frontend/routes/feedbackpage.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({Key key}) : super(key: key);
@@ -33,15 +34,14 @@ class SideDrawer extends StatelessWidget {
               '/notifications',
             ),
           ),
-          ListTile(
-            title: Text('Purchase'),
-            subtitle: Text('Purchase desired tickets from here...'),
-            leading: Icon(Icons.wallet_giftcard_rounded),
+         ListTile(
+            title: Text('Feedback'),
+            leading: Icon(Icons.feedback_rounded),
             onTap: () => Navigator.pushNamed(
               context,
-              '/notifications',
+              '/feedbackpage',
             ),
-          )
+          ),
         ],
       ),
     ));
