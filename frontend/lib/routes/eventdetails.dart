@@ -7,6 +7,8 @@ import 'package:frontend/utils/constants.dart';
 import 'package:frontend/models/event.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:html' as html;
+import 'package:flutter_html/flutter_html.dart';
 
 class EventDetails extends StatefulWidget {
   const EventDetails({this.event});
@@ -535,6 +537,10 @@ class _EventDetailsState extends State<EventDetails> {
                       ),
                     ),
                   ),
+                  // QR CODE IS DONE FOR EVALUATION
+                  Container(
+                    child: Html(data:"<a href='https://form.jotform.com/Demirci_Emre/justicket-evaluation-form' rel='no-follow'><img src='https://www.jotform.com/uploads/Demirci_Emre/form_files/213453479284059_1639910883_qrcode_muse.png' width='100%' style='max-width: 200px' alt='QR Code for Jotform form'/></a>"),
+                  )
                 ],
               ),
             ],
