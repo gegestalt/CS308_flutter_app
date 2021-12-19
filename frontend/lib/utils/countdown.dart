@@ -40,7 +40,8 @@ class _TimerState extends State<Timer> {
     sub.onDone(() {
       print("Done");
       sub.cancel();
-      // Redirect to homepage, not continued with checkout
+      // Return to previous page
+      Navigator.pop(context);
     });
   }
 
@@ -48,17 +49,17 @@ class _TimerState extends State<Timer> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
+      /*
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
-          width: 2.0,
+          width: 0,
         ),
       ),
+      */
       child: Text(
         "$timerText",
-        style: TextStyle(
-          fontSize: 20,
-        ),
+        style: TextStyle(fontSize: 20, color: Colors.redAccent),
       ),
     );
   }
