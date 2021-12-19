@@ -253,3 +253,36 @@ class Announcements(APIView):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+
+class EventDetails(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+
+        eventID = request.data["eventID"]
+        rspList = []
+        
+        # Return ticket categories and respective prices
+        # for the selected event
+        if eventID != None:
+            tickets = Ticket.objects.filter(eventID=eventID)
+
+            for t in tickets:
+                print(t)
+                rspList.append({
+                    t.category: t.price
+                })
+
+            print(rspList)
+
+            return Response(
+            rspList,
+            status=status.HTTP_200_OK,
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+            }
+        )
+
+

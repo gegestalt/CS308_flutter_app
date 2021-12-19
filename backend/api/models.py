@@ -1,5 +1,7 @@
 from typing import ContextManager
 from django.db import models
+from django.db.models.deletion import CASCADE
+from django.db.models.fields import DateField
 
 # Create your models here.
 
@@ -31,7 +33,7 @@ class Event(models.Model):
     type = models.CharField(max_length=50, default="normal")
 
     def __str__(self):
-        return self.name
+        return str(self.eventID) + ": " + self.name
 
 
 class Announcement(models.Model):
@@ -41,3 +43,14 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Ticket(models.Model):
+    ticketID = models.AutoField(primary_key=True, unique=True)
+    eventID = models.ForeignKey(Event, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    category = models.CharField(max_length=50, default="Category 1")
+    price = models.DecimalField(decimal_places=2, max_digits=10)
+
+    def __str__(self):
+        return str(self.ticketID)

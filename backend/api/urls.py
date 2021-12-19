@@ -8,4 +8,5 @@ urlpatterns = [
     path("log-in", LogIn.as_view(), name="log-in"),
     path("homepage", HomePage.as_view(), name="homepage"),
     path("announcements", Announcements.as_view(), name="announcements"),
+    path("details", EventDetails.as_view(), name="details"),
 ]

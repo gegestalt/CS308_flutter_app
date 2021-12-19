@@ -140,6 +140,7 @@ class _EventDetailsState extends State<EventDetails> {
                 // Search tickets box:
                 child: Scaffold(
                   appBar: AppBar(
+                    backgroundColor: kPrimaryColor,
                     automaticallyImplyLeading: false,
                     title: Text("Search Tickets"),
                   ),
@@ -257,6 +258,7 @@ class _EventDetailsState extends State<EventDetails> {
                 // Selected tickets box:
                 child: Scaffold(
                   appBar: AppBar(
+                    backgroundColor: kPrimaryColor,
                     automaticallyImplyLeading: false,
                     title: Text("Your Tickets"),
                   ),

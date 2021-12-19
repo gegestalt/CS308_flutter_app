@@ -1,5 +1,6 @@
 // For testing purposes, will change in the future
 class Event {
+  final String id;
   final String name;
   final String thumbnail;
   final String performer;
@@ -10,6 +11,7 @@ class Event {
   final String prices;
 
   Event({
+    this.id,
     this.name,
     this.thumbnail,
     this.location,
@@ -22,6 +24,7 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
+      id: json['eventID'].toString(),
       name: json['name'],
       thumbnail: json['thumbnail'],
       performer: json["performer"],
