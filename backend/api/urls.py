@@ -11,4 +11,6 @@ urlpatterns = [
     path("details", EventDetails.as_view(), name="details"),
     path("purchase", MakePurchase.as_view(), name="purchase"),
     path("discount", Discount.as_view(), name="discount"),
+    path("waiting-list", JoinWaitingList.as_view(), name="waiting-list"),
+
 ]

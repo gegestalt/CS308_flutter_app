@@ -357,6 +357,40 @@ class Discount(APIView):
                     "Access-Control-Allow-Headers": "*",
                 }
             )
-        
 
 
+class JoinWaitingList(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+        id = request.data["eventID"]
+        useremail = request.data["useremail"]
+
+        try:
+            event = Event.objects.get(eventID=id)
+
+            # If there is no available tickets:
+            if id != None and event.availableTickets == 0:
+                user = User.objects.get(email=useremail)                
+                list = WaitingList.objects.get(event=event)
+                list.user.add(user)
+
+                return Response(
+                    status=status.HTTP_200_OK,
+                    headers={
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                    }
+                )
+            else:
+                raise
+        except:
+            print("Something went wrong!")
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                }
+            )
