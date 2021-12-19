@@ -3,6 +3,8 @@ import '../utils/countdown.dart';
 import '../models/bill.dart';
 import 'payment.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Bill info = Bill();
 final _billingKey = GlobalKey<FormState>();
@@ -91,22 +93,22 @@ class _CheckOutState extends State<CheckOut> {
 }
 
 class Details extends StatefulWidget {
-  const Details(
-      {Key key,
-      this.eventname,
-      this.date,
-      this.type,
-      this.number,
-      this.price,
-      this.total})
-      : super(key: key);
+  Details({
+    Key key,
+    this.eventname = " ",
+    this.date = " ",
+    this.type = " ",
+    this.number = " ",
+    this.price = " ",
+    this.total = " ",
+  }) : super(key: key);
 
   final String eventname;
   final String date;
   final String type;
   final String number;
   final String price;
-  final String total;
+  String total;
 
   @override
   _DetailsState createState() => _DetailsState();
@@ -114,6 +116,50 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   final _discountKey = GlobalKey<FormState>();
+  TextEditingController discountController = TextEditingController();
+  String discountCode = "";
+  bool disableDiscount = false;
+
+  Future checkCode() async {
+    // Local host for django and endpoint for discount codes
+    final url = Uri.parse('http://127.0.0.1:8000/api/discount');
+
+    final requestBody = {
+      "code": discountCode,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+        var rsp = json.decode(response.body);
+
+        double discount = rsp["discount"];
+        double oldTotal = double.parse(widget.total);
+        double newTotal = oldTotal - oldTotal * discount;
+
+        // Valid code, update total price:
+        setState(() {
+          widget.total = newTotal.toString();
+          disableDiscount = true;
+          FocusScope.of(context).unfocus();
+          discountController.clear();
+        });
+      } else {
+        // Not a valid code:
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +214,34 @@ class _DetailsState extends State<Details> {
           Text("Discount Code:"),
           Form(
             key: _discountKey,
-            child: TextFormField(),
+            child: TextFormField(
+              controller: discountController,
+              readOnly: disableDiscount,
+              decoration: InputDecoration(
+                suffixIcon: !disableDiscount
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.send,
+                        ),
+                        onPressed: () {
+                          if (_discountKey.currentState.validate()) {
+                            _discountKey.currentState.save();
+                            checkCode();
+                          }
+                        },
+                      )
+                    : Container(),
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Please enter the code before submitting!";
+                }
+                return null;
+              },
+              onSaved: (value) {
+                discountCode = value;
+              },
+            ),
           ),
           SizedBox(height: 20),
           Center(
