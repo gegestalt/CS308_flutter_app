@@ -59,10 +59,10 @@ AppBar finalAppbar(BuildContext context) {
       ),
       RawMaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/notifications");
+          Navigator.pushNamed(context, "/lucky");
         },
         child: Text(
-          "Notifications",
+          "I am feeling Lucky",
         ),
       ),
       RawMaterialButton(
