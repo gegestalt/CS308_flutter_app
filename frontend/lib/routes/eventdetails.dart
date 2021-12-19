@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:frontend/main.dart';
 import 'package:frontend/routes/checkout.dart';
 import 'package:frontend/utils/appbars.dart';
 import 'package:frontend/utils/constants.dart';
@@ -69,11 +70,8 @@ class _EventDetailsState extends State<EventDetails> {
     if ((ticketDate != 'Select Date') && (ticketType != 'Select Category')) {
       for (var d in details) {
         if (d["date"].startsWith(ticketDate) && d["category"] == ticketType) {
-          print(d["price"]);
           price = d["price"];
           total = price * int.parse(ticketNumber);
-
-          print("Total cost is: ${total.toString()}");
         }
       }
     }
@@ -369,14 +367,31 @@ class _EventDetailsState extends State<EventDetails> {
                         OutlinedButton(
                           child: Text("Continue"),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CheckOut(),
-                              ),
-                            );
+                            if (isLoggedIn) {
+                              if ((ticketDate != 'Select Date') &&
+                                  (ticketType != 'Select Category')) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CheckOut(
+                                      eventname: widget.event.name,
+                                      date: ticketDate,
+                                      type: ticketType,
+                                      number: ticketNumber,
+                                      price: price.toString(),
+                                      total: total.toString(),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
                           },
                         ),
+                        SizedBox(height: 20),
+                        !isLoggedIn
+                            ? Text("Please log in to continue!",
+                                style: TextStyle(color: Colors.redAccent))
+                            : Container(),
                       ],
                     ),
                   ),

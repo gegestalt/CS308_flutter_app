@@ -9,4 +9,5 @@ urlpatterns = [
     path("homepage", HomePage.as_view(), name="homepage"),
     path("announcements", Announcements.as_view(), name="announcements"),
     path("details", EventDetails.as_view(), name="details"),
+    path("purchase", MakePurchase.as_view(), name="purchase"),
 ]

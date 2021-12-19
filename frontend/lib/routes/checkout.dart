@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import '../utils/countdown.dart';
+import '../models/bill.dart';
 import 'payment.dart';
 import 'package:frontend/utils/constants.dart';
 
+Bill info = Bill();
+final _billingKey = GlobalKey<FormState>();
+
 class CheckOut extends StatefulWidget {
-  const CheckOut({Key key}) : super(key: key);
+  const CheckOut(
+      {Key key,
+      this.eventname,
+      this.date,
+      this.type,
+      this.number,
+      this.price,
+      this.total})
+      : super(key: key);
+
+  final String eventname;
+  final String date;
+  final String type;
+  final String number;
+  final String price;
+  final String total;
 
   @override
   _CheckOutState createState() => _CheckOutState();
 }
 
 class _CheckOutState extends State<CheckOut> {
+  Bill info;
+
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size;
@@ -35,7 +56,14 @@ class _CheckOutState extends State<CheckOut> {
 
                   // Timer box with selected details
                   Expanded(
-                    child: Details(),
+                    child: Details(
+                      eventname: widget.eventname,
+                      date: widget.date,
+                      type: widget.type,
+                      number: widget.number,
+                      price: widget.price,
+                      total: widget.total,
+                    ),
                   ),
                 ],
               )
@@ -47,7 +75,14 @@ class _CheckOutState extends State<CheckOut> {
                   SizedBox(height: 50),
 
                   // Timer box with selected details
-                  Details(),
+                  Details(
+                    eventname: widget.eventname,
+                    date: widget.date,
+                    type: widget.type,
+                    number: widget.number,
+                    price: widget.price,
+                    total: widget.total,
+                  ),
                 ],
               ),
       ),
@@ -56,7 +91,22 @@ class _CheckOutState extends State<CheckOut> {
 }
 
 class Details extends StatefulWidget {
-  const Details({Key key}) : super(key: key);
+  const Details(
+      {Key key,
+      this.eventname,
+      this.date,
+      this.type,
+      this.number,
+      this.price,
+      this.total})
+      : super(key: key);
+
+  final String eventname;
+  final String date;
+  final String type;
+  final String number;
+  final String price;
+  final String total;
 
   @override
   _DetailsState createState() => _DetailsState();
@@ -80,8 +130,8 @@ class _DetailsState extends State<Details> {
               ),
             ),
           ),
-          Text("Event Name"),
-          Text("Date"),
+          Text(widget.eventname),
+          Text(widget.date),
           SizedBox(
             height: 20,
           ),
@@ -89,21 +139,21 @@ class _DetailsState extends State<Details> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Type:"),
-              Text("Tam"),
+              Text(widget.type),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Price:"),
-              Text("120 x 2"),
+              Text("${widget.price} x ${widget.number}"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Total:"),
-              Text("240"),
+              Text(widget.total),
             ],
           ),
           SizedBox(height: 30),
@@ -124,12 +174,18 @@ class _DetailsState extends State<Details> {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Payment(),
-                  ),
-                );
+                if (_billingKey.currentState.validate()) {
+                  _billingKey.currentState.save();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Payment(
+                        total: widget.total,
+                        info: info,
+                      ),
+                    ),
+                  );
+                }
               },
               child: Text("Continue"),
               style: ElevatedButton.styleFrom(
@@ -143,12 +199,16 @@ class _DetailsState extends State<Details> {
   }
 }
 
-class BillingForm extends StatelessWidget {
+class BillingForm extends StatefulWidget {
   const BillingForm({Key key}) : super(key: key);
 
   @override
+  _BillingFormState createState() => _BillingFormState();
+}
+
+class _BillingFormState extends State<BillingForm> {
+  @override
   Widget build(BuildContext context) {
-    final _billingKey = GlobalKey<FormState>();
     final media = MediaQuery.of(context).size;
     final contWidth = media.width - 300;
 
@@ -179,7 +239,9 @@ class BillingForm extends StatelessWidget {
                   }
                   return null;
                 },
-                onSaved: (value) {},
+                onSaved: (value) {
+                  info.name = value;
+                },
               ),
               SizedBox(height: 20),
               Text("Surname"),
@@ -187,6 +249,15 @@ class BillingForm extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please don't leave this space empty!";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  info.surname = value;
+                },
               ),
               SizedBox(height: 20),
               Text("Address"),
@@ -194,6 +265,15 @@ class BillingForm extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please don't leave this space empty!";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  info.address = value;
+                },
               ),
               SizedBox(height: 20),
               Text("Country"),
@@ -201,6 +281,15 @@ class BillingForm extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please don't leave this space empty!";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  info.country = value;
+                },
               ),
               SizedBox(height: 20),
               Text("City"),
@@ -208,6 +297,15 @@ class BillingForm extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please don't leave this space empty!";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  info.city = value;
+                },
               ),
               SizedBox(height: 20),
               Text("Zip Code"),
@@ -215,6 +313,15 @@ class BillingForm extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please don't leave this space empty!";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  info.zipcode = value;
+                },
               ),
               SizedBox(height: 20),
             ],

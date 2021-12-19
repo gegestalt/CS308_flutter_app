@@ -1,10 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:frontend/routes/home.dart';
 import 'package:http/http.dart' as http;
 import '../utils/constants.dart';
+import '../models/bill.dart';
+import '../main.dart';
 
 class Payment extends StatefulWidget {
+  const Payment({
+    this.total,
+    this.info,
+  });
+
+  final Bill info;
+  final String total;
+
   static String routeName = "/payment";
   @override
   _PaymentState createState() => _PaymentState();
@@ -45,7 +54,41 @@ class _PaymentState extends State<Payment> {
         });
   }
 
-  Future<void> Buy() async {}
+  Future<void> purchase() async {
+    // Local host for django and endpoint for details
+    final url = Uri.parse('http://127.0.0.1:8000/api/purchase');
+
+    final requestBody = {
+      "user-email": currentUser.email,
+      "total": widget.total,
+      "name": widget.info.name,
+      "surname": widget.info.surname,
+      "address": widget.info.address,
+      "country": widget.info.country,
+      "city": widget.info.city,
+      "zipcode": widget.info.zipcode,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+
+        showAlertDialog("Successfull!",
+            "Thank you for choosing us! Your ticket will be sent to you email address.");
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +255,7 @@ class _PaymentState extends State<Payment> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                          Buy();
+                          purchase();
                         }
                       },
                       fillColor: kPrimaryColor,

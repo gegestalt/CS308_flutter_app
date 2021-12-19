@@ -288,3 +288,29 @@ class EventDetails(APIView):
         )
 
 
+class MakePurchase(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+
+        # Save the purchases to database
+        email = request.data["user-email"]
+        total = request.data["total"]
+
+        if email!= None and total != None:
+            user = User.objects.get(email = email)
+            purchase = Purchase(user=user, total=total)
+            purchase.save()
+        
+
+        return Response(
+            status=status.HTTP_200_OK,
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+            }
+        )
+        
+
+
