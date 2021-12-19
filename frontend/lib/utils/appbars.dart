@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
-
+import 'constants.dart';
 import 'package:flutter/widgets.dart';
 
 AppBar selectAppbar(BuildContext context) {
@@ -13,10 +13,9 @@ AppBar selectAppbar(BuildContext context) {
 AppBar initialAppbar(BuildContext context) {
   return AppBar(
     title: Text("Justicket"),
+    backgroundColor: kPrimaryColor,
     automaticallyImplyLeading: false,
-    leading: GestureDetector(
-        
-        child: Icon(Icons.menu)),
+    leading: GestureDetector(child: Icon(Icons.menu)),
     actions: <Widget>[
       RawMaterialButton(
         onPressed: () {
@@ -41,6 +40,7 @@ AppBar initialAppbar(BuildContext context) {
 AppBar finalAppbar(BuildContext context) {
   return AppBar(
     title: Text("Justicket"),
+    backgroundColor: kPrimaryColor,
     automaticallyImplyLeading: false,
     actions: <Widget>[
       RawMaterialButton(

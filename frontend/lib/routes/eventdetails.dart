@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:frontend/main.dart';
+import 'package:frontend/routes/checkout.dart';
 import 'package:frontend/utils/appbars.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/models/event.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class EventDetails extends StatefulWidget {
   const EventDetails({this.event});
@@ -16,7 +20,68 @@ class EventDetails extends StatefulWidget {
 class _EventDetailsState extends State<EventDetails> {
   String ticketDate = "Select Date";
   String ticketNumber = "1";
-  String ticketType = "Please Select";
+  String ticketType = "Select Category";
+  double price;
+  double total = 0;
+  var details = [];
+  var dates = ['Select Date'];
+  var categories = ['Select Category'];
+
+  Future getDetails() async {
+    // Local host for django and endpoint for details
+    final url = Uri.parse('http://127.0.0.1:8000/api/details');
+
+    final requestBody = {
+      "eventID": widget.event.id,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: requestBody,
+        encoding: Encoding.getByName("utf-8"),
+      );
+
+      // Succesfull transmission
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print("Transmission was succesfull!!!");
+
+        details = json.decode(response.body);
+        // print(details);
+        for (var d in details) {
+          String date = d["date"].split("T")[0];
+
+          if (!dates.contains(date)) dates.add(date);
+
+          if (!categories.contains(d["category"]))
+            categories.add(d["category"]);
+        }
+
+        setState(() {});
+      }
+    } catch (error) {
+      print("Error: $error");
+
+      // An error occured, please try again later.
+    }
+  }
+
+  void getPrice() {
+    if ((ticketDate != 'Select Date') && (ticketType != 'Select Category')) {
+      for (var d in details) {
+        if (d["date"].startsWith(ticketDate) && d["category"] == ticketType) {
+          price = d["price"];
+          total = price * int.parse(ticketNumber);
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDetails();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +205,7 @@ class _EventDetailsState extends State<EventDetails> {
                 // Search tickets box:
                 child: Scaffold(
                   appBar: AppBar(
+                    backgroundColor: kPrimaryColor,
                     automaticallyImplyLeading: false,
                     title: Text("Search Tickets"),
                   ),
@@ -168,14 +234,10 @@ class _EventDetailsState extends State<EventDetails> {
                                 setState(() {
                                   ticketDate = newValue;
                                 });
+                                getPrice();
                               },
-                              items: [
-                                'Select Date',
-                                'Two',
-                                'Three',
-                                'Four',
-                                widget.event.date
-                              ].map<DropdownMenuItem<String>>((String value) {
+                              items: dates.map<DropdownMenuItem<String>>(
+                                  (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -203,6 +265,7 @@ class _EventDetailsState extends State<EventDetails> {
                                 setState(() {
                                   ticketNumber = newValue;
                                 });
+                                getPrice();
                               },
                               items: [
                                 "1",
@@ -232,8 +295,9 @@ class _EventDetailsState extends State<EventDetails> {
                             setState(() {
                               ticketType = newValue;
                             });
+                            getPrice();
                           },
-                          items: ["Please Select", "Category 1", "Category2"]
+                          items: categories
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -257,6 +321,7 @@ class _EventDetailsState extends State<EventDetails> {
                 // Selected tickets box:
                 child: Scaffold(
                   appBar: AppBar(
+                    backgroundColor: kPrimaryColor,
                     automaticallyImplyLeading: false,
                     title: Text("Your Tickets"),
                   ),
@@ -290,13 +355,43 @@ class _EventDetailsState extends State<EventDetails> {
                             Text(ticketType),
                           ],
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total Price"),
+                            Text("${total.toString()}\$"),
+                          ],
+                        ),
+                        SizedBox(height: 50),
                         OutlinedButton(
                           child: Text("Continue"),
                           onPressed: () {
-                            // TODO: Add the selected ticket to cart and go to checkout.
+                            if (isLoggedIn) {
+                              if ((ticketDate != 'Select Date') &&
+                                  (ticketType != 'Select Category')) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CheckOut(
+                                      eventname: widget.event.name,
+                                      date: ticketDate,
+                                      type: ticketType,
+                                      number: ticketNumber,
+                                      price: price.toString(),
+                                      total: total.toString(),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
                           },
                         ),
+                        SizedBox(height: 20),
+                        !isLoggedIn
+                            ? Text("Please log in to continue!",
+                                style: TextStyle(color: Colors.redAccent))
+                            : Container(),
                       ],
                     ),
                   ),
