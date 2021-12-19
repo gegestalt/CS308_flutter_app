@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/routes/upcomingevents.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'utils/constants.dart';
 import 'routes/home.dart';
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
         '/usersettings': (context) => UserSettings(),
         '/checkout': (context) => CheckOut(),
         'payment': (context) => Payment(),
-        '/feedbackpage': (context) => FeedbackPage()
+        '/feedbackpage': (context) => FeedbackPage(),
+        '/upcomingEvents':(context) => UpcomingEventsPage()
       },
     );
   }

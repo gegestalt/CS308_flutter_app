@@ -27,14 +27,14 @@ class SideDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Notifications'),
-            leading: Icon(Icons.notification_add),
+            title: Text('Upcoming Events'),
+            leading: Icon(Icons.access_alarms),
             onTap: () => Navigator.pushNamed(
               context,
-              '/notifications',
+              '/upcomingevents',
             ),
           ),
-         ListTile(
+          ListTile(
             title: Text('Feedback'),
             leading: Icon(Icons.feedback_rounded),
             onTap: () => Navigator.pushNamed(
