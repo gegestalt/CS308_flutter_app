@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/routes/home.dart';
 import 'package:quiver/strings.dart';
@@ -91,7 +92,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               height: 20.0,
             ),
             buildFeedbackForm(),
-            SizedBox(height: 20.0),
+            SizedBox(height: 10.0),
             buildNumberField(),
             Spacer(),
             Row(
@@ -106,8 +107,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     ),
                   ),
                   color: Colors.green,
-                  minWidth: 250,
-                  padding: EdgeInsets.all(16.0),
+                  minWidth: 25.0,
+                  padding: EdgeInsets.symmetric(),
                 ),
               ],
             )
