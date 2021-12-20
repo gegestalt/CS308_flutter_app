@@ -5,6 +5,7 @@ import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 import '../models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
     passwordController.text = password;
   }
@@ -29,7 +31,7 @@ class _SignUpState extends State<SignUp> {
     final _key = GlobalKey<FormState>();
 
     Future signUpUser() async {
-      print("Name: $name, email: $email, password: $password");
+      //print("Name: $name, email: $email, password: $password");
 
       // Local host for django and endpoint for signing up
       final url = Uri.parse('http://127.0.0.1:8000/api/sign-up');
@@ -65,6 +67,10 @@ class _SignUpState extends State<SignUp> {
             isAuthenticated: false,
             isActive: true,
           );
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString("email", currentUser.email);
+          prefs.setBool("isLoggedIn", true);
 
           // Redirect to home page where the user is signed in
           Navigator.pushNamed(context, '/home');

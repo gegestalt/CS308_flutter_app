@@ -486,74 +486,82 @@ class _EventDetailsState extends State<EventDetails> {
                         automaticallyImplyLeading: false,
                         title: Text("Your Tickets"),
                       ),
-                      body: Container(
-                        padding: EdgeInsets.all(25),
-                        decoration: BoxDecoration(
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Selected Date"),
-                                Text(ticketDate),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Selected Ticket Number"),
-                                Text(ticketNumber),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Selected Ticket Type"),
-                                Text(ticketType),
-                              ],
-                            ),
-                            SizedBox(height: 30),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Total Price"),
-                                Text("${total.toString()}\$"),
-                              ],
-                            ),
-                            SizedBox(height: 50),
-                            OutlinedButton(
-                              child: Text("Continue"),
-                              onPressed: () {
-                                if (isLoggedIn) {
-                                  if ((ticketDate != 'Select Date') &&
-                                      (ticketType != 'Select Category')) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => CheckOut(
-                                          eventname: widget.event.name,
-                                          date: ticketDate,
-                                          type: ticketType,
-                                          number: ticketNumber,
-                                          price: price.toString(),
-                                          total: total.toString(),
+                      body: SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.all(25),
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(child: Text("Selected Date")),
+                                  Flexible(child: Text(ticketDate)),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                      child: Text("Selected Ticket Number")),
+                                  Flexible(child: Text(ticketNumber)),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(child: Text("Selected Ticket Type")),
+                                  Flexible(child: Text(ticketType)),
+                                ],
+                              ),
+                              SizedBox(height: 30),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(child: Text("Total Price")),
+                                  Flexible(
+                                      child: Text("${total.toString()}\$")),
+                                ],
+                              ),
+                              SizedBox(height: 50),
+                              OutlinedButton(
+                                child: Text("Continue"),
+                                onPressed: () {
+                                  if (isLoggedIn) {
+                                    if ((ticketDate != 'Select Date') &&
+                                        (ticketType != 'Select Category')) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CheckOut(
+                                            eventname: widget.event.name,
+                                            date: ticketDate,
+                                            type: ticketType,
+                                            number: ticketNumber,
+                                            price: price.toString(),
+                                            total: total.toString(),
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                    }
                                   }
-                                }
-                              },
-                            ),
-                            SizedBox(height: 20),
-                            !isLoggedIn
-                                ? Text("Please log in to continue!",
-                                    style: TextStyle(color: Colors.redAccent))
-                                : Container(),
-                          ],
+                                },
+                              ),
+                              SizedBox(height: 20),
+                              !isLoggedIn
+                                  ? Text("Please log in to continue!",
+                                      style: TextStyle(color: Colors.redAccent))
+                                  : Container(),
+                            ],
+                          ),
                         ),
                       ),
                     ),

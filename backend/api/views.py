@@ -8,6 +8,35 @@ import uuid
 from datetime import date
 
 # Create your views here.
+class GetUser(APIView):
+    permission_classes = [] # No permission needed
+    authentication_classes = [] # No authentication needed
+
+    def post(self, request):
+        email = request.data["email"]
+
+        if email != None:
+            user = User.objects.get(email=email)
+
+            serializer = UserSerializer(user)
+            return Response(
+                serializer.data,
+                status=status.HTTP_200_OK,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                },
+            )
+
+        return Response(
+            status=status.HTTP_400_BAD_REQUEST,
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+            }
+        )
+
+
 class SignUp(APIView):
     permission_classes = [] # No permission needed
     authentication_classes = [] # No authentication needed

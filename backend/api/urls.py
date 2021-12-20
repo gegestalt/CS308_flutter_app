@@ -3,6 +3,7 @@ from django.urls.conf import include
 from .views import *
 
 urlpatterns = [
+    path("get-user", GetUser.as_view(), name="get-user"),
     path("sign-up", SignUp.as_view(), name="sign-up"),
     path("settings", UserSettings.as_view(), name="settings"),
     path("log-in", LogIn.as_view(), name="log-in"),
