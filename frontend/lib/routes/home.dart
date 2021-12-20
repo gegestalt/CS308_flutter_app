@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: selectAppbar(context),
-      drawer: SideDrawer(),
+      drawer: isLoggedIn ? SideDrawer() : Container(),
       body: ListView(
         children: [
           // Slider on top if the screen is small:

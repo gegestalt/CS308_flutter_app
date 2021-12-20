@@ -7,7 +7,6 @@ import 'dart:html' as html;
 import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 AppBar selectAppbar(BuildContext context) {
   if (isLoggedIn)
     return finalAppbar(context);
@@ -20,7 +19,6 @@ AppBar initialAppbar(BuildContext context) {
     title: Text("Justicket"),
     backgroundColor: kPrimaryColor,
     automaticallyImplyLeading: false,
-    leading: GestureDetector(child: Icon(Icons.menu)),
     actions: <Widget>[
       RawMaterialButton(
         onPressed: () {
@@ -68,7 +66,7 @@ AppBar finalAppbar(BuildContext context) {
       ),
       RawMaterialButton(
           onPressed: () {
-            Navigator.pushNamed(context, "/filter");
+            Navigator.pushNamed(context, "/search");
           },
           child: Text(
             "Filter",

@@ -81,7 +81,7 @@ class _PaymentState extends State<Payment> {
         print("Transmission was succesfull!!!");
 
         showAlertDialog("Successfull!",
-            "Thank you for choosing us! Your ticket will be sent to you email address.");
+            "Thank you for choosing us! Your reservation details are sent to event's managers.");
       }
     } catch (error) {
       print("Error: $error");

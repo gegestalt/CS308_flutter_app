@@ -44,11 +44,9 @@ class MyApp extends StatelessWidget {
         '/payment': (context) => Payment(),
         '/feedbackpage': (context) => FeedbackPage(),
         '/lucky': (context) => LuckyPage(),
-        '/about':(context) => AboutPage(),
-        'payment': (context) => Payment(),
-        '/feedbackpage': (context) => FeedbackPage(),
-        '/upcomingevents': (context) => UpcomingEventsPage()
-        '/search': (context) => ListViewFiltering()
+        '/about': (context) => AboutPage(),
+        '/upcomingevents': (context) => UpcomingEventsPage(),
+        '/search': (context) => ListViewFiltering(),
       },
     );
   }
