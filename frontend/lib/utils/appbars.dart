@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
 import 'package:flutter_html/flutter_html.dart';
+
 AppBar selectAppbar(BuildContext context) {
   if (isLoggedIn)
     return finalAppbar(context);
@@ -19,7 +20,6 @@ AppBar initialAppbar(BuildContext context) {
     automaticallyImplyLeading: false,
     leading: GestureDetector(child: Icon(Icons.menu)),
     actions: <Widget>[
-
       RawMaterialButton(
         onPressed: () {
           Navigator.pushNamed(context, "/login");
@@ -47,29 +47,15 @@ AppBar finalAppbar(BuildContext context) {
     automaticallyImplyLeading: false,
     actions: <Widget>[
       RawMaterialButton(
-        onPressed: () async{
-          final url = "https://form.jotform.com/Demirci_Emre/justicket-evaluation-form";
-          html.window.open(url,'new_tab');
+        onPressed: () async {
+          final url =
+              "https://form.jotform.com/Demirci_Emre/justicket-evaluation-form";
+          html.window.open(url, 'new_tab');
         },
         child: Text(
           "Rate Events",
         ),
       ),
-      RawMaterialButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/notifications");
-        },
-        child: Text(
-          "Notifications",
-        ),
-      ),
-      RawMaterialButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/filter");
-          },
-          child: Text(
-            "Filter",
-          )),
       RawMaterialButton(
         onPressed: () {
           Navigator.pushNamed(context, "/usersettings");
