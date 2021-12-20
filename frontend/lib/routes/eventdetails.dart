@@ -198,7 +198,9 @@ class _EventDetailsState extends State<EventDetails> {
     return Scaffold(
       appBar: selectAppbar(context),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(100, 100, 100, 50),
+        padding: !isSmallScreen
+            ? EdgeInsets.fromLTRB(100, 100, 100, 50)
+            : EdgeInsets.all(20),
         shrinkWrap: true,
         children: [
           // Image, name, date, location:

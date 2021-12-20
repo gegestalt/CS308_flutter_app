@@ -83,9 +83,9 @@ class _SignUpState extends State<SignUp> {
     }
 
     return Container(
-      padding: EdgeInsets.all(size.height > 770
-          ? 64
-          : size.height > 670
+      padding: EdgeInsets.all(size.width > 770
+          ? 40
+          : size.width > 670
               ? 32
               : 16),
       child: Center(

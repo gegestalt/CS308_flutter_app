@@ -52,6 +52,7 @@ class _CheckOutState extends State<CheckOut> {
             : EdgeInsets.fromLTRB(50, 20, 50, 20),
         child: media.width > 900
             ? Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Billing information
                   Expanded(child: BillingForm()),
@@ -164,7 +165,7 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
+      padding: EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -286,7 +287,6 @@ class _BillingFormState extends State<BillingForm> {
     final contWidth = media.width - 300;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
       child: Form(
         key: _billingKey,
         child: SingleChildScrollView(

@@ -71,9 +71,9 @@ class _LogInState extends State<LogIn> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(size.height > 770
+          padding: EdgeInsets.all(size.width > 770
               ? 64
-              : size.height > 670
+              : size.width > 670
                   ? 32
                   : 16),
           child: Center(

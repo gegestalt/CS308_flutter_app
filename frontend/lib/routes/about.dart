@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:frontend/utils/appbars.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:contactus/contactus.dart';
 
@@ -19,7 +20,6 @@ class AboutPage extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -30,24 +30,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: selectAppbar(context),
         backgroundColor: kPrimaryColor,
-        body: ContactUs(
-          logo: NetworkImage('https://pbs.twimg.com/profile_images/989856290586464257/qiOcJHGR_400x400.jpg'),
-          email: 'justicket43@gmail.com',
-          companyName: 'Justicket',
-          dividerThickness: 2,
-          website: 'https://www.sabanciuniv.edu/en',
-          githubUserName: 'm3n3s',
-          linkedinURL: 'https://www.linkedin.com/in/justicket-justicket-215913228/',
-          tagLine: 'Group7',
-          twitterHandle: '',
+        body: Container(
+          padding: EdgeInsets.all(50),
+          child: ContactUs(
+            logo: NetworkImage(
+                'https://pbs.twimg.com/profile_images/989856290586464257/qiOcJHGR_400x400.jpg'),
+            email: 'justicket43@gmail.com',
+            companyName: 'Justicket',
+            dividerThickness: 2,
+            website: 'https://www.sabanciuniv.edu/en',
+            githubUserName: 'm3n3s',
+            linkedinURL:
+                'https://www.linkedin.com/in/justicket-justicket-215913228/',
+            tagLine: 'Group7',
+            twitterHandle: '',
+          ),
         ),
       ),
     );
