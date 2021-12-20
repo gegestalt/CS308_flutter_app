@@ -10,6 +10,8 @@ import '../utils/animatedeventcard.dart';
 import '../utils/eventcard.dart';
 import '../utils/announcementtile.dart';
 import '../utils/appbars.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/getuser.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -88,8 +90,17 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future getPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs.containsKey("email") && prefs.getString("email") != "") {
+      getUser(prefs.getString("email"));
+    }
+  }
+
   @override
   void initState() {
+    getPrefs();
     getEvents("featured");
     getEvents("normal");
     getAnnouncements();
