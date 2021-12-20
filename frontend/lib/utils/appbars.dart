@@ -7,6 +7,7 @@ import 'dart:html' as html;
 import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 AppBar selectAppbar(BuildContext context) {
   if (isLoggedIn)
     return finalAppbar(context);

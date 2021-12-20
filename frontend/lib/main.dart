@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/search.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'utils/constants.dart';
 import 'routes/home.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         '/feedbackpage': (context) => FeedbackPage(),
         '/lucky': (context) => LuckyPage(),
         '/about':(context) => AboutPage(),
+        'payment': (context) => Payment(),
+        '/feedbackpage': (context) => FeedbackPage(),
+        '/search': (context) => ListViewFiltering()
       },
     );
   }
