@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/routes/upcomingevents.dart';
 import 'package:frontend/utils/search.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'utils/constants.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/about':(context) => AboutPage(),
         'payment': (context) => Payment(),
         '/feedbackpage': (context) => FeedbackPage(),
+        '/upcomingevents': (context) => UpcomingEventsPage()
         '/search': (context) => ListViewFiltering()
       },
     );
