@@ -82,10 +82,10 @@ AppBar finalAppbar(BuildContext context) {
       ),
       RawMaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/search");
+          Navigator.pushNamed(context, "/about");
         },
         child: Text(
-          "Search",
+          "About Us",
         ),
       ),
       RawMaterialButton(
