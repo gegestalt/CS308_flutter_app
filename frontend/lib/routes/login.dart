@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
@@ -18,6 +19,7 @@ class _LogInState extends State<LogIn> {
 
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
     passwordController.text = password;
   }
@@ -28,9 +30,9 @@ class _LogInState extends State<LogIn> {
     final _key = GlobalKey<FormState>();
 
     Future loginUser() async {
-      print("email: $email, password: $password");
+      // print("email: $email, password: $password");
 
-      // Local host for django and endpoint for signing up
+      // Local host for django and endpoint for logging in
       final url = Uri.parse('http://127.0.0.1:8000/api/log-in');
 
       final requestBody = {
@@ -51,6 +53,10 @@ class _LogInState extends State<LogIn> {
 
           isLoggedIn = true;
           currentUser = User.fromJson(jsonDecode(response.body));
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString("email", currentUser.email);
+          prefs.setBool("isLoggedIn", true);
 
           // Redirect to home page where the user is signed in
           Navigator.pushNamed(context, '/home');

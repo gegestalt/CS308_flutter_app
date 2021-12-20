@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/routes/home.dart';
+import 'package:quiver/strings.dart';
 
 class FeedbackPage extends StatefulWidget {
   @override
@@ -13,13 +14,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.red[400],
         elevation: 2.0,
         centerTitle: true,
         title: Text(
           "Feedback",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
@@ -100,9 +101,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   child: Text(
                     "SUBMIT",
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  color: Color(0xFFE5E5E5),
+                  color: Colors.green,
+                  minWidth: 250,
                   padding: EdgeInsets.all(16.0),
                 ),
               ],
@@ -137,7 +141,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     width: 10.0,
                   ),
                   Text(
-                    "+60",
+                    "+90",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFC5C5C5),
@@ -210,7 +214,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
-                        Icons.add,
+                        Icons.add_photo_alternate,
                         color: Color(0xFFA5A5A5),
                       ),
                     ),

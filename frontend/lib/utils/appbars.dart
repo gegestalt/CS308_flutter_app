@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 AppBar selectAppbar(BuildContext context) {
   if (isLoggedIn)
@@ -58,6 +60,21 @@ AppBar finalAppbar(BuildContext context) {
       ),
       RawMaterialButton(
         onPressed: () {
+          Navigator.pushNamed(context, "/lucky");
+        },
+        child: Text(
+          "I am feeling Lucky",
+        ),
+      ),
+      RawMaterialButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "/filter");
+          },
+          child: Text(
+            "Filter",
+          )),
+      RawMaterialButton(
+        onPressed: () {
           Navigator.pushNamed(context, "/usersettings");
         },
         child: Text(
@@ -66,12 +83,29 @@ AppBar finalAppbar(BuildContext context) {
       ),
       RawMaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/search");
+          Navigator.pushNamed(context, "/about");
         },
         child: Text(
-          "Search",
+          "About Us",
+        ),
+      ),
+      RawMaterialButton(
+        onPressed: () {
+          setPrefs();
+          Navigator.pushNamed(context, "/home");
+        },
+        child: Text(
+          "Sign Out",
         ),
       ),
     ],
   );
+}
+
+Future setPrefs() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+
+  isLoggedIn = false;
+  currentUser = null;
 }
