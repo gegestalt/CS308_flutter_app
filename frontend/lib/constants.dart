@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-Color kPrimaryColor = Color(0xFFFE4350);
 class Constants {
   static const double kPadding = 10.0;
   static const Color purpleLight = Color(0XFF1e224c);

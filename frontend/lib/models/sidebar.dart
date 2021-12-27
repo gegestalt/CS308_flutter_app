@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/main.dart';
-import 'package:frontend/routes/login.dart';
-import 'package:frontend/routes/feedbackpage.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({Key key}) : super(key: key);
@@ -32,6 +30,14 @@ class SideDrawer extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               '/feedbackpage',
+            ),
+          ),
+          ListTile(
+            title: Text('Admin Dashboard'),
+            leading: Icon(Icons.admin_panel_settings),
+            onTap: () => Navigator.pushNamed(
+              context,
+              '/widgetTree',
             ),
           ),
         ],

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/event.dart';
-import '../main.dart';
-import 'package:frontend/utils/appbars.dart';
+
 
 import 'constants.dart';
 

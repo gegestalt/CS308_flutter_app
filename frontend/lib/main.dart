@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widget_tree.dart';
+
 import 'package:frontend/routes/upcomingevents.dart';
 import 'package:frontend/utils/search.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +17,6 @@ import 'routes/feedbackpage.dart';
 import 'routes/lucky.dart';
 import 'routes/about.dart';
 
-// Can be retrieved from sharedpref or cache in initstate of MyApp
 bool isLoggedIn = false;
 User currentUser;
 
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/about': (context) => AboutPage(),
         '/upcomingevents': (context) => UpcomingEventsPage(),
         '/search': (context) => ListViewFiltering(),
+        '/widgetTree': (context) => WidgetTree()
       },
     );
   }
